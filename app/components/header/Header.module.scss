@@ -1,0 +1,30 @@
+@import "../../styles/media.scss";
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  background: #dbd1c6;
+  padding-block: 10px;
+
+  &__logo {
+    width: 150px;
+    aspect-ratio: 1;
+    border-radius: 45%;
+  }
+
+  &__title {
+    font-size: 3em;
+    font-weight: 500;
+  }
+
+  @include mobile {
+    &__logo {
+      width: 100px;
+      aspect-ratio: 1;
+    }
+
+    &__title {
+      font-size: 2em;
+    }
+  }
+}
