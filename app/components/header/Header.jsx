@@ -14,7 +14,7 @@ export default function Header({ onLogoClick }) {
       <header className={styles.header}>
         <Image
           className={styles.header__logo}
-          src="/logo.png"
+          src="/logo.webp"
           width={250}
           height={250}
           alt="logo"
