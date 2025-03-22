@@ -14,6 +14,26 @@ export default function RootLayout({ children }) {
           name="google-site-verification"
           content="6A0SGqXlYwu_gQDr96O790GIZ6-j3DhJR3f5mUFhi7c"
         />
+        <meta name="robots" content="index, follow" />
+        <meta
+          name="description"
+          content="Сайт для проходження психологічних тестів для самодіагностики."
+        />
+        <meta
+          name="keywords"
+          content="пізнай себе, психологічні тести, самодіагностика"
+        />
+        <meta property="og:title" content="Пізнай себе" />
+        <meta
+          property="og:description"
+          content="Сайт для проходження психологічних тестів для самодіагностики."
+        />
+        <meta
+          property="og:image"
+          content="https://piznay-sebe.pp.ua/logo.png"
+        />
+        <meta property="og:url" content="https://piznay-sebe.pp.ua/" />
+        <meta property="og:type" content="website" />
       </head>
       <body className={`antialiased`}>
         {children}
