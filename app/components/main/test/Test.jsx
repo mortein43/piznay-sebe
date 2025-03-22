@@ -12,7 +12,7 @@ export default function Test({ test }) {
         </h2>
         <Image
           className={styles.test__logo}
-          src="/logo.webp"
+          src="/logo.svg"
           width={375}
           height={375}
           alt="logo"
