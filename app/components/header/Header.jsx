@@ -1,7 +1,14 @@
+import Link from "next/link";
 import Image from "next/image";
 import styles from "./Header.module.scss";
+import { Caveat } from "next/font/google";
 
-export default function Header() {
+const caveat = Caveat({
+  weight: "400",
+  subsets: ["cyrillic"],
+});
+
+export default function Header({ onLogoClick }) {
   return (
     <>
       <header className={styles.header}>
@@ -11,8 +18,11 @@ export default function Header() {
           width={250}
           height={250}
           alt="logo"
-        ></Image>
-        <h1 className={styles.header__title}>Пізнай себе</h1>
+          onClick={onLogoClick}
+        />
+        <h1 className={`${styles.header__title} ${caveat.className}`}>
+          Пізнай себе
+        </h1>
       </header>
     </>
   );

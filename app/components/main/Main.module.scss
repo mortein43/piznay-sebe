@@ -1,0 +1,23 @@
+@use "../../styles/media.scss" as *;
+.main_wrapper {
+  display: flex;
+  justify-content: space-around;
+  gap: 15px;
+  margin-top: 15px;
+  padding-inline: 10px;
+}
+
+.main_wrapper > :first-child {
+  flex: 1;
+}
+
+.main_wrapper > :nth-child(2) {
+  flex: 3;
+}
+
+@include mobile {
+  .main_wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+}

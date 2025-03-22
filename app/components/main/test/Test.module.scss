@@ -1,0 +1,101 @@
+@use "../../../styles/media.scss" as *;
+.test {
+  padding: 25px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 15px 15px 0 0;
+  border-top: 2px solid rgb(105, 44, 44);
+  /*border-left: 2px solid rgb(105, 44, 44);*/
+
+  &__title {
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  &__logo {
+    margin-top: 25px;
+    animation: spinY 5s linear infinite;
+  }
+
+  @keyframes spinY {
+    from {
+      transform: rotateY(0deg);
+    }
+    to {
+      transform: rotateY(360deg);
+    }
+  }
+
+  &__name,
+  &__description,
+  &__instruction,
+  &__questionWrapper {
+    margin-top: 10px;
+  }
+
+  &__name {
+    font-size: 24px;
+  }
+
+  &__instruction {
+    font-style: italic;
+  }
+
+  &__questionText {
+    font-weight: bold;
+  }
+
+  &__answersButtonsWrapper {
+    margin-top: 45px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+
+  &__button {
+    padding: 15px 30px;
+    background-color: rgb(125, 218, 113);
+    width: max-content;
+    border-radius: 25px;
+    color: rgb(114, 99, 80);
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 10px 10px 20px #b8b8b8, -10px -10px 20px #ffffff;
+    border: none;
+    outline: none;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      box-shadow: 5px 5px 10px #b8b8b8, -5px -5px 10px #ffffff;
+    }
+
+    &:active {
+      box-shadow: inset 5px 5px 10px #b8b8b8, inset -5px -5px 10px #ffffff;
+      transform: scale(0.98);
+    }
+  }
+
+  &__resultTitle,
+  &__resultTotal,
+  &__resultTitleForScale,
+  &__resultForScale {
+    color: green;
+  }
+
+  &__resultTitle {
+    margin-top: 15px;
+  }
+
+  &__interpritation {
+    text-align: justify;
+    margin-top: 15px;
+  }
+
+  @include mobile {
+    font-size: 14px;
+    padding: 5px;
+  }
+}

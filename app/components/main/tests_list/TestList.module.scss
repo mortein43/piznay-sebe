@@ -1,0 +1,56 @@
+@use "../../../styles/media.scss" as *;
+
+.testList_wrapper {
+  padding: 10px;
+  border-top: 2px solid rgb(105, 44, 44);
+  border-radius: 10px 10px 0 0;
+  text-align: center;
+}
+
+.testList_title {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.testList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  /*border-right: 2px solid rgb(105, 44, 44);*/
+
+  &__item {
+    border-bottom: 1px solid black;
+  }
+
+  &__item:hover {
+    cursor: pointer;
+    opacity: 0.75;
+  }
+}
+
+@include mobile {
+  .testList {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    &__item {
+      font-size: 14px;
+      border-bottom: 0 solid black;
+      padding: 5px;
+      text-wrap: nowrap;
+      text-decoration: underline;
+    }
+
+    &__item::-weblit-scrollbar {
+      width: 0;
+      height: 5px;
+    }
+  }
+
+  .testList_title {
+    margin-bottom: 0;
+  }
+}
