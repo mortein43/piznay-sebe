@@ -17,7 +17,7 @@ export default function TestList({ onSelectTest }) {
 
   return (
     <section className={styles.testList_wrapper}>
-      <h3 className={styles.testList_title}>Список тестів</h3>
+      <h2 className={styles.testList_title}>Список тестів</h2>
       <ul className={styles.testList}>
         {tests.map((test) => (
           <li
