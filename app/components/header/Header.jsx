@@ -19,7 +19,7 @@ export default function Header({ onLogoClick }) {
           height={250}
           alt="logo"
           onClick={onLogoClick}
-          loading="lazy"
+          priority={true}
         />
         <h1 className={`${styles.header__title} ${caveat.className}`}>
           Пізнай себе

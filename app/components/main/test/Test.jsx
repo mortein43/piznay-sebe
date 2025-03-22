@@ -16,7 +16,7 @@ export default function Test({ test }) {
           width={375}
           height={375}
           alt="logo"
-          loading="lazy"
+          priority={true}
         />
       </section>
     );
