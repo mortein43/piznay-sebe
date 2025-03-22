@@ -97,5 +97,10 @@
   @include mobile {
     font-size: 14px;
     padding: 5px;
+
+    &__logo {
+      width: 300px;
+      aspect-ratio: 1;
+    }
   }
 }
