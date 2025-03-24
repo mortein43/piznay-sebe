@@ -2,8 +2,9 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "@/app/styles/globals.scss";
 import { Analytics } from "@vercel/analytics/react";
 export const metadata = {
-  title: "Пізнай себе",
-  description: "Щоб пізнати себе краще",
+  title: "Пізнай себе – Психологічні тести для самодіагностики",
+  description:
+    "Пройдіть безкоштовні психологічні тести, дізнайтеся більше про свої емоції, характер і особистість. Пізнайте себе краще!",
 };
 
 export default function RootLayout({ children }) {
@@ -16,12 +17,8 @@ export default function RootLayout({ children }) {
         />
         <meta name="robots" content="index, follow" />
         <meta
-          name="description"
-          content="Сайт для проходження психологічних тестів для самодіагностики."
-        />
-        <meta
           name="keywords"
-          content="пізнай себе, психологічні тести, самодіагностика"
+          content="пізнай себе, психологічні тести, самодіагностика, саморозвиток"
         />
         <meta property="og:title" content="Пізнай себе" />
         <meta
