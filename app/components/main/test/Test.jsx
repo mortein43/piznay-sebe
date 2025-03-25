@@ -32,7 +32,7 @@ export default function Test({ test }) {
     setShowResult(false);
   }, [test]);
 
-  const currentQuestion = test.questions[currentQuestionIndex];
+  const currentQuestion = test?.questions?.[currentQuestionIndex] || null;
 
   const handleAnswerSelect = (answer) => {
     const answerValue = currentQuestion.answers[answer];
@@ -93,9 +93,14 @@ export default function Test({ test }) {
         </section>
       ) : (
         <section className={styles.test__questionWrapper}>
-          <h3 className={styles.test__questionText}>
-            {currentQuestion.question}
-          </h3>
+          {currentQuestion ? (
+            <h3 className={styles.test__questionText}>
+              {currentQuestion.question}
+            </h3>
+          ) : (
+            <h3>Помилка: питання не знайдено.</h3>
+          )}
+
           <section className={styles.test__answersButtonsWrapper}>
             {Object.keys(currentQuestion.answers).map((answer, index) => (
               <button

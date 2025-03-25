@@ -6,7 +6,11 @@ import Test from "./test/Test";
 export default function Main({ selectedTest, setSelectedTest }) {
   const handleSelectTest = (test) => {
     setSelectedTest(null);
-    setTimeout(() => setSelectedTest(test), 10);
+    setTimeout(() => {
+      if (test) {
+        setSelectedTest(test);
+      }
+    }, 10);
   };
 
   return (
