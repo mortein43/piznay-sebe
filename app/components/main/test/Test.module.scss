@@ -76,6 +76,11 @@
       box-shadow: inset 5px 5px 10px #b8b8b8, inset -5px -5px 10px #ffffff;
       transform: scale(0.98);
     }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
   }
 
   &__resultTitle,

@@ -22,6 +22,7 @@ export default function Test({ test }) {
     );
   }
 
+  const [isDisabled, setIsDisabled] = useState(false);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [scores, setScores] = useState({});
   const [showResult, setShowResult] = useState(false);
@@ -35,6 +36,10 @@ export default function Test({ test }) {
   const currentQuestion = test?.questions?.[currentQuestionIndex] || null;
 
   const handleAnswerSelect = (answer) => {
+    if (isDisabled) return;
+
+    setIsDisabled(true);
+
     const answerValue = currentQuestion.answers[answer];
 
     setScores((prevScores) => {
@@ -44,13 +49,14 @@ export default function Test({ test }) {
       return newScores;
     });
 
-    if (currentQuestionIndex < test.questions.length - 1) {
-      setTimeout(() => {
+    setTimeout(() => {
+      if (currentQuestionIndex < test.questions.length - 1) {
         setCurrentQuestionIndex((prev) => prev + 1);
-      }, 500);
-    } else {
-      setShowResult(true);
-    }
+      } else {
+        setShowResult(true);
+      }
+      setIsDisabled(false);
+    }, 500);
   };
 
   const totalScore = Object.values(scores).reduce((acc, val) => acc + val, 0);
@@ -107,6 +113,7 @@ export default function Test({ test }) {
                 className={styles.test__button}
                 key={index}
                 onClick={() => handleAnswerSelect(answer)}
+                disabled={isDisabled}
               >
                 {answer}
               </button>
