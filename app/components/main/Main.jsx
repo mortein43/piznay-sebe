@@ -17,7 +17,7 @@ export default function Main({ selectedTest, setSelectedTest }) {
   };
 
   return (
-    <main className={`${styles.main_wrapper} container mx-auto`}>
+    <main className={`${styles.main_wrapper} ${styles.myContainer}`}>
       <button
         className={styles.menuButton}
         onClick={() => setIsTestOpen(!isTestListOpen)}

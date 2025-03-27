@@ -1,4 +1,9 @@
 @use "../../styles/media.scss" as *;
+.myContainer {
+  width: 70%;
+  margin: 0 auto;
+}
+
 .main_wrapper {
   display: flex;
   justify-content: space-around;
@@ -7,11 +12,11 @@
   padding-inline: 10px;
 }
 
-.main_wrapper > :first-child {
+.main_wrapper > :nth-child(2) {
   flex: 1;
 }
 
-.main_wrapper > :nth-child(2) {
+.main_wrapper > :nth-child(3) {
   flex: 3;
 }
 
@@ -26,7 +31,7 @@
 }
 
 .menuButton {
-  display: block;
+  display: none;
   margin: 0 auto;
   padding: 10px 15px;
   background: #c5bfb7;
