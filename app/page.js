@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import Header from "./components/header/Header";
 import Main from "./components/main/Main";
 
@@ -11,7 +11,7 @@ export default function Home() {
   };
   return (
     <>
-      <Header onLogoClick={resetTest} />
+      <Header className="headerInPage" onLogoClick={resetTest} />
       <Main selectedTest={selectedTest} setSelectedTest={setSelectedTest} />
     </>
   );

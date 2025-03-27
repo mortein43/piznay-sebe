@@ -15,9 +15,34 @@
   flex: 3;
 }
 
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+}
+
+.menuButton {
+  display: block;
+  margin: 0 auto;
+  padding: 10px 15px;
+  background: #c5bfb7;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  z-index: 100;
+}
+
 @include mobile {
   .main_wrapper {
     display: flex;
     flex-direction: column;
+  }
+
+  .menuButton {
+    display: block;
   }
 }

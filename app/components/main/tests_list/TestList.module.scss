@@ -30,27 +30,51 @@
 }
 
 @include mobile {
-  .testList {
-    display: flex;
-    flex-direction: row;
-    overflow-x: auto;
-    overflow-y: hidden;
-
-    &__item {
-      font-size: 14px;
-      border-bottom: 0 solid black;
-      padding: 5px;
-      text-wrap: nowrap;
-      text-decoration: underline;
-    }
-
-    &__item::-weblit-scrollbar {
-      width: 0;
-      height: 5px;
-    }
+  .testList_wrapper {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100vh;
+    background: white;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+    transition: left 0.3s ease-in-out;
+    padding: 20px;
+    z-index: 101;
   }
 
   .testList_title {
     margin-bottom: 0;
+  }
+
+  .testList_wrapper.open {
+    left: 0;
+  }
+
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+  }
+
+  .menuButton {
+    display: none;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 100;
+    background: rgb(211, 196, 196);
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+
+  .menuButton {
+    display: block;
   }
 }
