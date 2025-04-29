@@ -1,11 +1,20 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./Main.module.scss";
 import TestList from "./tests_list/TestList";
 import Test from "./test/Test";
 
 export default function Main({ selectedTest, setSelectedTest }) {
   const [isTestListOpen, setIsTestOpen] = useState(false);
+
+  useEffect(() => {
+    if (isTestListOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+  }, [isTestListOpen]);
+
   const handleSelectTest = (test) => {
     setSelectedTest(null);
     setTimeout(() => {
