@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-"Пізнай себе" (piznay-sebe.pp.ua) — a Ukrainian-language site for taking psychological self-assessment tests. Next.js 15 (React 19, plain JavaScript, no TypeScript), styled with SCSS modules, data in MongoDB, deployed on Vercel (uses `@vercel/analytics`). All user-facing text, log messages and API messages are in Ukrainian — keep it that way. Everything else is English only: documentation (README, CLAUDE.md), code comments in every file type (JS, SCSS, config), commit messages, PR titles and PR descriptions.
+"Пізнай себе" (piznay-sebe.pp.ua) — a Ukrainian-language site for taking psychological self-assessment tests. Next.js 15 (React 19, plain JavaScript, no TypeScript), styled with SCSS modules, data in MongoDB, deployed on Vercel (uses `@vercel/analytics`). Only UI text (what users see on the site) is in Ukrainian — keep it that way. Everything else is English only: API messages, log messages (including script output), documentation (README, CLAUDE.md), code comments in every file type (JS, SCSS, config), commit messages, PR titles and PR descriptions.
 
 ## Commands
 

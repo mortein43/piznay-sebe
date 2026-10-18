@@ -23,7 +23,7 @@ const only = onlyArg
   : null;
 
 if (!process.env.MONGODB_URI) {
-  console.error("Будь ласка, додайте MONGODB_URI в .env.local");
+  console.error("Please add MONGODB_URI to .env.local");
   process.exit(1);
 }
 
@@ -42,7 +42,7 @@ const canonical = (value) => {
 const fingerprint = (doc) =>
   JSON.stringify(canonical(BSON.EJSON.serialize(doc, { relaxed: false })));
 
-const label = (doc) => `${doc.name ?? "(без назви)"} [${doc._id}]`;
+const label = (doc) => `${doc.name ?? "(untitled)"} [${doc._id}]`;
 
 const client = new MongoClient(process.env.MONGODB_URI);
 
@@ -65,7 +65,7 @@ try {
     );
     const missing = only.filter((value) => !matched.has(value));
     if (missing.length > 0) {
-      console.error(`Не знайдено в staging: ${missing.join(", ")}`);
+      console.error(`Not found in staging: ${missing.join(", ")}`);
       process.exitCode = 1;
     }
   }
@@ -84,20 +84,20 @@ try {
   const prodOnly = prodDocs.filter((doc) => !stagingIds.has(String(doc._id)));
 
   console.log(`${SOURCE_DB} → ${TARGET_DB}`);
-  console.log(`Нові (буде додано): ${toInsert.length}`);
+  console.log(`New (will be inserted): ${toInsert.length}`);
   toInsert.forEach((doc) => console.log(`  + ${label(doc)}`));
-  console.log(`Змінені (буде оновлено): ${toUpdate.length}`);
+  console.log(`Changed (will be updated): ${toUpdate.length}`);
   toUpdate.forEach((doc) => console.log(`  ~ ${label(doc)}`));
-  console.log(`Без змін: ${unchanged}`);
+  console.log(`Unchanged: ${unchanged}`);
   if (prodOnly.length > 0) {
-    console.log(`Є тільки на проді (не чіпаємо): ${prodOnly.length}`);
+    console.log(`Only in prod (left untouched): ${prodOnly.length}`);
     prodOnly.forEach((doc) => console.log(`  = ${label(doc)}`));
   }
 
   if (toInsert.length === 0 && toUpdate.length === 0) {
-    console.log("Переносити нічого.");
+    console.log("Nothing to promote.");
   } else if (!apply) {
-    console.log("Це лише план. Запустіть з --apply, щоб записати зміни в прод.");
+    console.log("This is only a plan. Run with --apply to write the changes to prod.");
   } else {
     await target.bulkWrite(
       [...toInsert, ...toUpdate].map((doc) => ({
@@ -105,11 +105,11 @@ try {
       }))
     );
     console.log(
-      `Готово: додано ${toInsert.length}, оновлено ${toUpdate.length}.`
+      `Done: inserted ${toInsert.length}, updated ${toUpdate.length}.`
     );
   }
 } catch (error) {
-  console.error("Помилка:", error.codeName || error.name, "-", error.message);
+  console.error("Error:", error.codeName || error.name, "-", error.message);
   process.exitCode = 1;
 } finally {
   await client.close();
