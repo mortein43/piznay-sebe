@@ -21,7 +21,7 @@ Requires `MONGODB_URI` in `.env.local`; `app/lib/mongodb.js` throws at import ti
 
 ## Branches and deploys
 
-- `staging` is the working branch: work branches open PRs into it, and Vercel gives it a Preview deployment.
+- `staging` is the working branch: work branches open PRs into it, and Vercel gives it a Preview deployment at https://staging.piznay-sebe.pp.ua. It is protected by Vercel Authentication: to give someone access, generate a share link in Vercel (Deployments → the deployment → Share) and send it privately. Never put share links (`?_vercel_share=...`) in the repo, Confluence or Jira — the token works like a password.
 - Work branches are cut from `staging` and named `<prefix>/PS-<n>-<short-kebab-description>`, where `PS-<n>` is the Jira issue key (project `PS`):
   - `feature/` — new functionality visible to users (e.g. `feature/PS-12-test-results-share`)
   - `fix/` — bug fixes (e.g. `fix/PS-14-empty-test-list`)
