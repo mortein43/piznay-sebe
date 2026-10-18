@@ -8,8 +8,6 @@ if (!uri) {
   throw new Error("Будь ласка, додайте MONGODB_URI в .env.local");
 }
 
-console.log("Підключення до MongoDB за адресою:", uri);
-
 if (process.env.NODE_ENV === "development") {
   if (!global._mongoClientPromise) {
     console.log("Створення нового підключення до MongoDB...");
