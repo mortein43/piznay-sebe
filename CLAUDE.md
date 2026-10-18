@@ -22,10 +22,11 @@ Requires `MONGODB_URI` in `.env.local`; `app/lib/mongodb.js` throws at import ti
 ## Branches and deploys
 
 - `staging` is the working branch: work branches open PRs into it, and Vercel gives it a Preview deployment.
-- Work branches are cut from `staging` and named `<prefix>/<short-kebab-description>`:
-  - `feature/` — new functionality visible to users (e.g. `feature/test-results-share`)
-  - `fix/` — bug fixes (e.g. `fix/empty-test-list`)
-  - `chore/` — maintenance that doesn't change app behavior: dependency upgrades, config, tooling, scripts, docs (e.g. `chore/upgrade-next`)
+- Work branches are cut from `staging` and named `<prefix>/PS-<n>-<short-kebab-description>`, where `PS-<n>` is the Jira issue key (project `PS`):
+  - `feature/` — new functionality visible to users (e.g. `feature/PS-12-test-results-share`)
+  - `fix/` — bug fixes (e.g. `fix/PS-14-empty-test-list`)
+  - `chore/` — maintenance that doesn't change app behavior: dependency upgrades, config, tooling, scripts, docs (e.g. `chore/PS-15-upgrade-next`)
+  - Work with no Jira issue drops the key: `<prefix>/<short-kebab-description>`.
 - `main` is production: it only receives `staging → main` PRs (use a merge commit, not squash), and every push to it redeploys prod on Vercel.
 - Hotfixes branch from `main`, merge into `main`, then `main` is merged back into `staging`.
 - Test content lives in MongoDB, not in git, so merging code does not move it. New or edited tests are made in `piznay_sebe_staging`, checked on staging, then promoted with `node --env-file=.env.local scripts/promote-tests-to-prod.mjs` (prints the plan; add `--apply` to write, `--only="<name or _id>,..."` to limit). It upserts by `_id` and never deletes from prod.
