@@ -27,7 +27,7 @@ export default function TestList({ isOpen, onSelectTest }) {
               key={test._id}
               className={styles.testList__item}
               onClick={() => {
-                console.log("Вибраний тест:", test);
+                console.log("Selected test:", test);
                 onSelectTest(test);
               }}
             >

@@ -5,14 +5,12 @@ let client;
 let clientPromise;
 
 if (!uri) {
-  throw new Error("Будь ласка, додайте MONGODB_URI в .env.local");
+  throw new Error("Please add MONGODB_URI to .env.local");
 }
-
-console.log("Підключення до MongoDB за адресою:", uri);
 
 if (process.env.NODE_ENV === "development") {
   if (!global._mongoClientPromise) {
-    console.log("Створення нового підключення до MongoDB...");
+    console.log("Creating a new MongoDB connection...");
     client = new MongoClient(uri, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -21,7 +19,7 @@ if (process.env.NODE_ENV === "development") {
   }
   clientPromise = global._mongoClientPromise;
 } else {
-  console.log("Створення підключення до MongoDB...");
+  console.log("Creating a MongoDB connection...");
   client = new MongoClient(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
