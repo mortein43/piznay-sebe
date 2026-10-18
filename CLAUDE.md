@@ -24,6 +24,7 @@ Requires `MONGODB_URI` in `.env.local`; `app/lib/mongodb.js` throws at import ti
 - `staging` is the working branch: feature branches open PRs into it, and Vercel gives it a Preview deployment.
 - `main` is production: it only receives `staging → main` PRs (use a merge commit, not squash), and every push to it redeploys prod on Vercel.
 - Hotfixes branch from `main`, merge into `main`, then `main` is merged back into `staging`.
+- Test content lives in MongoDB, not in git, so merging code does not move it. New or edited tests are made in `piznay_sebe_staging`, checked on staging, then promoted with `node --env-file=.env.local scripts/promote-tests-to-prod.mjs` (prints the plan; add `--apply` to write, `--only="<name or _id>,..."` to limit). It upserts by `_id` and never deletes from prod.
 
 ## Architecture
 
