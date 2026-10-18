@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-"Пізнай себе" (piznay-sebe.pp.ua) — a Ukrainian-language site for taking psychological self-assessment tests. Next.js 15 (React 19, plain JavaScript, no TypeScript), styled with SCSS modules, data in MongoDB, deployed on Vercel (uses `@vercel/analytics`). All user-facing text, log messages and API messages are in Ukrainian — keep it that way.
+"Пізнай себе" (piznay-sebe.pp.ua) — a Ukrainian-language site for taking psychological self-assessment tests. Next.js 15 (React 19, plain JavaScript, no TypeScript), styled with SCSS modules, data in MongoDB, deployed on Vercel (uses `@vercel/analytics`). All user-facing text, log messages and API messages are in Ukrainian — keep it that way. Everything else is English only: documentation (README, CLAUDE.md), code comments in every file type (JS, SCSS, config), commit messages, PR titles and PR descriptions.
 
 ## Commands
 
@@ -21,7 +21,11 @@ Requires `MONGODB_URI` in `.env.local`; `app/lib/mongodb.js` throws at import ti
 
 ## Branches and deploys
 
-- `staging` is the working branch: feature branches open PRs into it, and Vercel gives it a Preview deployment.
+- `staging` is the working branch: work branches open PRs into it, and Vercel gives it a Preview deployment.
+- Work branches are cut from `staging` and named `<prefix>/<short-kebab-description>`:
+  - `feature/` — new functionality visible to users (e.g. `feature/test-results-share`)
+  - `fix/` — bug fixes (e.g. `fix/empty-test-list`)
+  - `chore/` — maintenance that doesn't change app behavior: dependency upgrades, config, tooling, scripts, docs (e.g. `chore/upgrade-next`)
 - `main` is production: it only receives `staging → main` PRs (use a merge commit, not squash), and every push to it redeploys prod on Vercel.
 - Hotfixes branch from `main`, merge into `main`, then `main` is merged back into `staging`.
 - Test content lives in MongoDB, not in git, so merging code does not move it. New or edited tests are made in `piznay_sebe_staging`, checked on staging, then promoted with `node --env-file=.env.local scripts/promote-tests-to-prod.mjs` (prints the plan; add `--apply` to write, `--only="<name or _id>,..."` to limit). It upserts by `_id` and never deletes from prod.

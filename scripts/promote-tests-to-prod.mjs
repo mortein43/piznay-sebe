@@ -1,10 +1,10 @@
-// Переносить тести зі staging-бази в продову: додає нові й оновлює змінені (за _id).
-// На проді нічого не видаляє. Без --apply лише показує план змін.
+// Promotes tests from the staging database to prod: inserts new ones and updates changed ones (by _id).
+// Never deletes anything in prod. Without --apply it only prints the plan.
 //
-// Запуск:
-//   node --env-file=.env.local scripts/promote-tests-to-prod.mjs                  # показати план
-//   node --env-file=.env.local scripts/promote-tests-to-prod.mjs --apply          # записати в прод
-//   node --env-file=.env.local scripts/promote-tests-to-prod.mjs --only="Назва тесту,67d9820a825587c7cc6d534d"
+// Usage:
+//   node --env-file=.env.local scripts/promote-tests-to-prod.mjs                  # print the plan
+//   node --env-file=.env.local scripts/promote-tests-to-prod.mjs --apply          # write to prod
+//   node --env-file=.env.local scripts/promote-tests-to-prod.mjs --only="Test name,67d9820a825587c7cc6d534d"
 import { MongoClient, BSON } from "mongodb";
 
 const SOURCE_DB = "piznay_sebe_staging";
@@ -27,7 +27,7 @@ if (!process.env.MONGODB_URI) {
   process.exit(1);
 }
 
-// Порівнює документи незалежно від порядку полів.
+// Compares documents regardless of field order.
 const canonical = (value) => {
   if (Array.isArray(value)) return value.map(canonical);
   if (value && typeof value === "object") {

@@ -22,11 +22,11 @@
   padding-right: 15px;
 
   &::-webkit-scrollbar {
-    width: 8px; // ширина скролбара
+    width: 8px; // scrollbar width
   }
 
   &::-webkit-scrollbar-track {
-    background: transparent; // фон "доріжки"
+    background: transparent; // scrollbar track background
   }
 
   &::-webkit-scrollbar-thumb {
