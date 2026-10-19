@@ -29,7 +29,7 @@ Requires Node.js 20.6+ and npm.
 
 2. Create `.env.local` in the repository root (it is git-ignored):
 
-   ```bash
+   ```
    MONGODB_URI=<connection string>
    MONGODB_DB=piznay_sebe_staging
    ```
