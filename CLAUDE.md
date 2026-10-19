@@ -12,7 +12,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 npm run dev      # dev server with Turbopack on http://localhost:3000
 npm run build    # production build
 npm run start    # serve the production build
-npm run lint     # next lint (eslint, next/core-web-vitals)
+npm run lint     # eslint CLI with next/core-web-vitals over .js, .jsx and .mjs
 ```
 
 There is no automated test suite. ("Tests" in this codebase and in commit messages means the psychological quizzes stored in MongoDB.)
