@@ -10,7 +10,6 @@ if (!uri) {
 
 if (process.env.NODE_ENV === "development") {
   if (!global._mongoClientPromise) {
-    console.log("Creating a new MongoDB connection...");
     client = new MongoClient(uri, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -19,12 +18,15 @@ if (process.env.NODE_ENV === "development") {
   }
   clientPromise = global._mongoClientPromise;
 } else {
-  console.log("Creating a MongoDB connection...");
   client = new MongoClient(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
   clientPromise = client.connect();
 }
+
+// Handlers await clientPromise and handle its errors. This stops an unhandled
+// rejection when a request (for example a 405) never awaits it.
+clientPromise.catch(() => {});
 
 export default clientPromise;
