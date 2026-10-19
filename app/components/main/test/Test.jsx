@@ -4,6 +4,17 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 
 export default function Test({ test }) {
+  const [isDisabled, setIsDisabled] = useState(false);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [scores, setScores] = useState({});
+  const [showResult, setShowResult] = useState(false);
+
+  useEffect(() => {
+    setCurrentQuestionIndex(0);
+    setScores({});
+    setShowResult(false);
+  }, [test]);
+
   if (!test) {
     return (
       <section className={styles.test}>
@@ -21,17 +32,6 @@ export default function Test({ test }) {
       </section>
     );
   }
-
-  const [isDisabled, setIsDisabled] = useState(false);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [scores, setScores] = useState({});
-  const [showResult, setShowResult] = useState(false);
-
-  useEffect(() => {
-    setCurrentQuestionIndex(0);
-    setScores({});
-    setShowResult(false);
-  }, [test]);
 
   const currentQuestion = test?.questions?.[currentQuestionIndex] || null;
 
