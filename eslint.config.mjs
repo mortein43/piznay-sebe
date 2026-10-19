@@ -11,7 +11,7 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
   {
-    ignores: [".next/**", "out/**", "build/**", "next-env.d.ts"],
+    ignores: [".next/**", "out/**", "build/**", ".vercel/**", "coverage/**", "next-env.d.ts"],
   },
   // Flat config lints only .js, .mjs and .cjs by default; without this entry .jsx files are skipped.
   {
