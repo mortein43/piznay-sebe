@@ -25,4 +25,8 @@ if (process.env.NODE_ENV === "development") {
   clientPromise = client.connect();
 }
 
+// Handlers await clientPromise and handle its errors. This stops an unhandled
+// rejection when a request (for example a 405) never awaits it.
+clientPromise.catch(() => {});
+
 export default clientPromise;
