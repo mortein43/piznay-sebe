@@ -33,6 +33,15 @@ export default function Test({ test }) {
     );
   }
 
+  if (!Array.isArray(test.questions) || test.questions.length === 0) {
+    return (
+      <section className={styles.test}>
+        <h2 className={styles.test__name}>{test.name}</h2>
+        <p className={styles.test__title}>У цьому тесті поки немає питань.</p>
+      </section>
+    );
+  }
+
   const currentQuestion = test?.questions?.[currentQuestionIndex] || null;
 
   const handleAnswerSelect = (answer) => {
