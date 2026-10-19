@@ -19,7 +19,7 @@ Next.js 15 (React 19) in plain JavaScript, SCSS modules, MongoDB, hosted on Verc
 
 ## Local setup
 
-Requires Node.js 20.6+ and npm.
+Requires Node.js 20.6+ (the maintenance scripts in `scripts/` run with `node --env-file`) and npm.
 
 1. Install dependencies:
 
