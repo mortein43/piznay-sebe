@@ -42,7 +42,7 @@ export default function Test({ test }) {
     );
   }
 
-  const currentQuestion = test?.questions?.[currentQuestionIndex] || null;
+  const currentQuestion = test.questions[currentQuestionIndex];
 
   const handleAnswerSelect = (answer) => {
     if (isDisabled) return;
@@ -108,13 +108,9 @@ export default function Test({ test }) {
         </section>
       ) : (
         <section className={styles.test__questionWrapper}>
-          {currentQuestion ? (
-            <h3 className={styles.test__questionText}>
-              {currentQuestion.question}
-            </h3>
-          ) : (
-            <h3>Помилка: питання не знайдено.</h3>
-          )}
+          <h3 className={styles.test__questionText}>
+            {currentQuestion.question}
+          </h3>
 
           <section className={styles.test__answersButtonsWrapper}>
             {Object.keys(currentQuestion.answers).map((answer, index) => (
