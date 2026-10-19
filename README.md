@@ -1,36 +1,59 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Пізнай себе (piznay-sebe)
 
-## Getting Started
+A Ukrainian-language website for taking psychological self-assessment tests. A visitor picks a test from the list, answers the questions one by one and gets a total score, per-scale scores (for multi-scale tests) and an interpretation.
 
-First, run the development server:
+## Links
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+| What | Where |
+| --- | --- |
+| Production | https://piznay-sebe.pp.ua |
+| Staging | https://staging.piznay-sebe.pp.ua (protected by Vercel Authentication; ask the project owner for access) |
+| Documentation | [Confluence space «Пізнай себе»](https://mortein43-1788434116115.atlassian.net/wiki/spaces/PS) |
+| Task tracking | [Jira project `PS`](https://mortein43-1788434116115.atlassian.net/jira/software/projects/PS) |
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Never commit Vercel share links (`?_vercel_share=...`) or other secrets: a share link works like a password.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Tech stack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Next.js 15 (React 19) in plain JavaScript, SCSS modules, MongoDB, hosted on Vercel.
 
-## Learn More
+## Local setup
 
-To learn more about Next.js, take a look at the following resources:
+Requires Node.js 20.6+ and npm.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Install dependencies:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   ```bash
+   npm install
+   ```
 
-## Deploy on Vercel
+2. Create `.env.local` in the repository root (it is git-ignored):
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   ```bash
+   MONGODB_URI=<connection string>
+   MONGODB_DB=piznay_sebe_staging
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   `MONGODB_URI` is required. `MONGODB_DB` is optional, but without it the app uses `piznay_sebe`, **the production database**, so set it to `piznay_sebe_staging` for local work.
+
+3. Start the dev server and open http://localhost:3000:
+
+   ```bash
+   npm run dev
+   ```
+
+## Commands
+
+| Command | What it does |
+| --- | --- |
+| `npm run dev` | Dev server with Turbopack on http://localhost:3000 |
+| `npm run build` | Production build |
+| `npm run start` | Serve the production build |
+| `npm run lint` | ESLint (`next/core-web-vitals`) over `.js`, `.jsx` and `.mjs` |
+
+There is no automated test suite. "Tests" in this project usually means the psychological quizzes stored in MongoDB.
+
+## More documentation
+
+- [Confluence space «Пізнай себе»](https://mortein43-1788434116115.atlassian.net/wiki/spaces/PS): architecture and data model, local development, development and release process, test content runbook.
+- [`CLAUDE.md`](CLAUDE.md): the engineering rules (branches, deploys, conventions); the source of truth when docs disagree.
