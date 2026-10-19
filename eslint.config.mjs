@@ -9,6 +9,15 @@ const compat = new FlatCompat({
   baseDirectory: __dirname,
 });
 
-const eslintConfig = [...compat.extends("next/core-web-vitals")];
+const eslintConfig = [
+  {
+    ignores: [".next/**", "out/**", "build/**", ".vercel/**", "coverage/**", "next-env.d.ts"],
+  },
+  // Flat config lints only .js, .mjs and .cjs by default; without this entry .jsx files are skipped.
+  {
+    files: ["**/*.{js,jsx,mjs}"],
+  },
+  ...compat.extends("next/core-web-vitals"),
+];
 
 export default eslintConfig;
