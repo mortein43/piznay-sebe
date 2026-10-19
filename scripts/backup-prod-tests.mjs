@@ -14,8 +14,8 @@ import { fileURLToPath } from "node:url";
 const SOURCE_DB = "piznay_sebe";
 const COLLECTION = "tests";
 
-const outputArg = process.argv[2];
-if (!outputArg || outputArg.startsWith("--")) {
+const [outputArg, ...extraArgs] = process.argv.slice(2);
+if (!outputArg || outputArg.startsWith("--") || extraArgs.length > 0) {
   console.error("Usage: node --env-file=.env.local scripts/backup-prod-tests.mjs <output file outside the repo>");
   process.exit(1);
 }
