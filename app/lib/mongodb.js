@@ -10,7 +10,6 @@ if (!uri) {
 
 if (process.env.NODE_ENV === "development") {
   if (!global._mongoClientPromise) {
-    console.log("Creating a new MongoDB connection...");
     client = new MongoClient(uri, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -19,7 +18,6 @@ if (process.env.NODE_ENV === "development") {
   }
   clientPromise = global._mongoClientPromise;
 } else {
-  console.log("Creating a MongoDB connection...");
   client = new MongoClient(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
