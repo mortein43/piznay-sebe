@@ -26,9 +26,7 @@ export default function TestList({ isOpen, onSelectTest }) {
             <li
               key={test._id}
               className={styles.testList__item}
-              onClick={() => {
-                onSelectTest(test);
-              }}
+              onClick={() => onSelectTest(test)}
             >
               {test.name}
             </li>
