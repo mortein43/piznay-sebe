@@ -44,7 +44,7 @@ docs/epics/<epic key>-<short-kebab-name>/
 
 - All files are `.md` and in English; UI strings and proper names (e.g. Confluence space names) may be quoted in Ukrainian as they appear.
 - The first task of every epic is "Add epic and task docs to the repo" (branch `chore/PS-<n>-add-epic-docs`): it writes these files, and in Jira it blocks every other task of the epic.
-- Jira is the source of truth for status; the docs are a snapshot of the scope. Update them when an epic's or task's scope changes, not when its status does, and bump the "Last synced with Jira on" date at the top of each file you re-sync. Acceptance-criteria checkboxes are never ticked.
+- Jira is the source of truth for status; the docs are a snapshot of the scope. Update them when an epic's or task's scope changes, not when its status does, and bump the "Last synced with Jira on" date in the note under each file's metadata list when you re-sync it. Acceptance-criteria checkboxes are never ticked.
 - Example: `docs/epics/PS-1-prepare-project-for-further-work/`.
 
 ## Architecture

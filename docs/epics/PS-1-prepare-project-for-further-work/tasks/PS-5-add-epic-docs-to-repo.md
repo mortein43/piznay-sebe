@@ -7,7 +7,7 @@
 - **Depends on:** —
 - **Blocks:** [PS-2](PS-2-protect-production-data.md), [PS-3](PS-3-fix-quiz-view-bugs-and-lint.md), [PS-4](PS-4-move-docs-and-replace-readme.md)
 
-> Last synced with Jira on 2026-10-19 (update the date on every re-sync). Jira is the source of truth for status.
+> Last synced with Jira on 2026-10-19. Jira is the source of truth for status.
 
 **This is the first task of the epic.** By convention, every epic starts with a task that copies the epic and its tasks from Jira into the repository, so the specs are versioned next to the code.
 

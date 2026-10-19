@@ -3,7 +3,7 @@
 - **Jira:** [PS-1](https://mortein43-1788434116115.atlassian.net/browse/PS-1)
 - **Type:** Epic
 
-> Last synced with Jira on 2026-10-19 (update the date on every re-sync). Jira is the source of truth for status; update this file when the scope changes.
+> Last synced with Jira on 2026-10-19. Jira is the source of truth for status; update this file when the scope changes.
 
 ## Goal
 

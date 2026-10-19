@@ -4,9 +4,9 @@
 - **Type:** Task
 - **Epic:** [PS-1](../README.md)
 - **Mode:** feature (partly manual) · **Size:** S–M · **Tags:** [clarity]
-- **Depends on:** [PS-5](PS-5-add-epic-docs-to-repo.md) (Jira: blocked by)
+- **Depends on:** [PS-5](PS-5-add-epic-docs-to-repo.md)
 
-> Last synced with Jira on 2026-10-19 (update the date on every re-sync). Jira is the source of truth for status.
+> Last synced with Jira on 2026-10-19. Jira is the source of truth for status.
 
 ## What and why
 
