@@ -31,6 +31,22 @@ Requires `MONGODB_URI` in `.env.local`; `app/lib/mongodb.js` throws at import ti
 - Hotfixes branch from `main`, merge into `main`, then `main` is merged back into `staging`.
 - Test content lives in MongoDB, not in git, so merging code does not move it. New or edited tests are made in `piznay_sebe_staging`, checked on staging, then promoted with `node --env-file=.env.local scripts/promote-tests-to-prod.mjs` (prints the plan; add `--apply` to write, `--only="<name or _id>,..."` to limit). It upserts by `_id` and never deletes from prod.
 
+## Epics and task docs
+
+Epics and their tasks live in Jira (project `PS`), and a copy of each epic's specs is versioned in the repo:
+
+```
+docs/epics/<epic key>-<short-kebab-name>/
+├── README.md                                  # the epic: goal, why, in/out of scope, success criteria, risks, task table
+└── tasks/
+    └── <task key>-<short-kebab-name>.md       # one per task: Jira link, type, what and why, acceptance criteria, dependencies
+```
+
+- All files are `.md` and in English; UI strings and proper names (e.g. Confluence space names) may be quoted in Ukrainian as they appear.
+- The first task of every epic is "Add epic and task docs to the repo" (branch `chore/PS-<n>-add-epic-docs`): it writes these files, and in Jira it blocks every other task of the epic.
+- Jira is the source of truth for status; the docs are a snapshot of the scope. Update them when an epic's or task's scope changes, not when its status does, and bump the "Last synced with Jira on" date in the note under each file's metadata list when you re-sync it. Acceptance-criteria checkboxes are never ticked.
+- Example: `docs/epics/PS-1-prepare-project-for-further-work/`.
+
 ## Architecture
 
 - **Mixed routers**: UI lives in the App Router (`app/`), but the only API endpoint is a Pages Router route, `pages/api/test.js` → `/api/test`. `GET` returns every document from the `piznay_sebe.tests` collection; `POST` inserts the request body as a new test (no auth or validation).
