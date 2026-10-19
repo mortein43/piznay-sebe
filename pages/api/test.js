@@ -14,7 +14,7 @@ export default async function handler(req, res) {
     const tests = await collection.find({}).toArray();
     res.status(200).json(tests);
   } catch (error) {
-    console.error(error.message);
+    console.error(String(error));
     res.status(500).json({ message: "Internal server error" });
   }
 }
