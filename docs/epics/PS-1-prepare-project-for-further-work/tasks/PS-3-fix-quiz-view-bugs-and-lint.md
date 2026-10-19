@@ -4,10 +4,9 @@
 - **Type:** Bug
 - **Epic:** [PS-1](../README.md)
 - **Mode:** bugfix · **Size:** M · **Tags:** [contracts], [clarity]
-- **Depends on:** —
-- **Blocked by:** [PS-5](PS-5-add-epic-docs-to-repo.md)
+- **Depends on:** [PS-5](PS-5-add-epic-docs-to-repo.md) (Jira: blocked by)
 
-> Copied from Jira on 2026-10-19. Jira is the source of truth for status.
+> Last synced with Jira on 2026-10-19 (update the date on every re-sync). Jira is the source of truth for status.
 
 ## What and why
 
@@ -16,6 +15,8 @@
 - A test document with an empty or missing `questions` array crashes the quiz view: `Object.keys(currentQuestion.answers)` is read while `currentQuestion` is `null`.
 
 ## Acceptance criteria
+
+_Boxes are not ticked here; status is tracked in Jira._
 
 - [ ] `npm run lint` runs the ESLint CLI (no `next lint` deprecation warning) with `next/core-web-vitals` rules and actually lints `.js`, `.jsx` and `.mjs` files.
 - [ ] `Test.jsx` calls all hooks unconditionally; `react-hooks/rules-of-hooks` reports nothing.

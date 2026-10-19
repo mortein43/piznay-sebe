@@ -7,7 +7,7 @@
 - **Depends on:** —
 - **Blocks:** [PS-2](PS-2-protect-production-data.md), [PS-3](PS-3-fix-quiz-view-bugs-and-lint.md), [PS-4](PS-4-move-docs-and-replace-readme.md)
 
-> Copied from Jira on 2026-10-19. Jira is the source of truth for status.
+> Last synced with Jira on 2026-10-19 (update the date on every re-sync). Jira is the source of truth for status.
 
 **This is the first task of the epic.** By convention, every epic starts with a task that copies the epic and its tasks from Jira into the repository, so the specs are versioned next to the code.
 
@@ -28,6 +28,8 @@ docs/epics/PS-1-prepare-project-for-further-work/
 Naming: `docs/epics/<epic key>-<short-kebab-name>/`, task files `tasks/<task key>-<short-kebab-name>.md`. All files are `.md`.
 
 ## Acceptance criteria
+
+_Boxes are not ticked here; status is tracked in Jira._
 
 - [ ] `docs/epics/PS-1-prepare-project-for-further-work/README.md` contains the epic: goal, why / who benefits, in scope, out of scope, success criteria, risks, and a table of its tasks (key, title, type, link to the task file and to Jira), in the order they should be done.
 - [ ] `tasks/` has one `.md` file per task of the epic (PS-5, PS-2, PS-3, PS-4) with: Jira key and link, type, what and why, acceptance criteria as a checklist, dependencies.
