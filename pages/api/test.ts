@@ -10,7 +10,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<WithId<TestDocument>[] | { message: string }>
 ) {
-  // Read-only: tests reach prod only through scripts/promote-tests-to-prod.mjs.
+  // Read-only: tests reach prod only through scripts/promote-tests-to-prod.mts.
   if (req.method !== "GET") {
     res.setHeader("Allow", "GET");
     return res.status(405).json({ message: "Method not allowed" });

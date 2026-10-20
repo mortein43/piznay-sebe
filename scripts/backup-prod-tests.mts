@@ -1,11 +1,11 @@
 // Backs up the prod tests collection to a JSON file outside the repository. Only reads the database.
-// Run it before every promote-tests-to-prod.mjs --apply.
+// Run it before every promote-tests-to-prod.mts --apply.
 //
 // The file is canonical Extended JSON (ObjectId and number types are kept), so it can be restored
 // with `mongoimport --jsonArray`. An existing file is never overwritten.
 //
 // Usage:
-//   node --env-file=.env.local scripts/backup-prod-tests.mjs ~/piznay-sebe-backups/tests-$(date +%Y-%m-%d-%H%M).json
+//   npx --no -- tsx --env-file=.env.local scripts/backup-prod-tests.mts ~/piznay-sebe-backups/tests-$(date +%Y-%m-%d-%H%M).json
 import { MongoClient, BSON } from "mongodb";
 import { access, mkdir, realpath, writeFile } from "node:fs/promises";
 import path from "node:path";
@@ -16,7 +16,7 @@ const COLLECTION = "tests";
 
 const [outputArg, ...extraArgs] = process.argv.slice(2);
 if (!outputArg || outputArg.startsWith("--") || extraArgs.length > 0) {
-  console.error("Usage: node --env-file=.env.local scripts/backup-prod-tests.mjs <output file outside the repo>");
+  console.error("Usage: npx --no -- tsx --env-file=.env.local scripts/backup-prod-tests.mts <output file outside the repo>");
   process.exit(1);
 }
 
@@ -26,9 +26,9 @@ if (!process.env.MONGODB_URI) {
 }
 
 // Resolves symlinks in the part of the path that already exists.
-const realpathOfExisting = async (target) => {
+const realpathOfExisting = async (target: string): Promise<string> => {
   let existing = target;
-  const rest = [];
+  const rest: string[] = [];
   while (true) {
     try {
       return path.join(await realpath(existing), ...rest);
@@ -41,7 +41,7 @@ const realpathOfExisting = async (target) => {
   }
 };
 
-const isInside = (root, target) => {
+const isInside = (root: string, target: string) => {
   const relative = path.relative(root, target);
   return (
     relative === "" ||
@@ -72,6 +72,12 @@ if (exists) {
   process.exit(1);
 }
 
+// Reads a field of a caught value for the error line; anything can be thrown.
+const errorField = (error: unknown, key: string): unknown =>
+  error && typeof error === "object"
+    ? (error as Record<string, unknown>)[key]
+    : undefined;
+
 const client = new MongoClient(process.env.MONGODB_URI);
 
 try {
@@ -81,7 +87,7 @@ try {
   await mkdir(path.dirname(outputPath), { recursive: true });
   await writeFile(
     outputPath,
-    `${BSON.EJSON.stringify(docs, null, 2, { relaxed: false })}\n`,
+    `${BSON.EJSON.stringify(docs, undefined, 2, { relaxed: false })}\n`,
     { flag: "wx" }
   );
 
@@ -90,7 +96,14 @@ try {
     console.log("Warning: the collection is empty.");
   }
 } catch (error) {
-  console.error("Error:", error.codeName || error.code || error.name, "-", error.message);
+  console.error(
+    "Error:",
+    errorField(error, "codeName") ||
+      errorField(error, "code") ||
+      errorField(error, "name"),
+    "-",
+    errorField(error, "message")
+  );
   process.exitCode = 1;
 } finally {
   await client.close();

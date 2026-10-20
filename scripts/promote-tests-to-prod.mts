@@ -2,10 +2,11 @@
 // Never deletes anything in prod. Without --apply it only prints the plan.
 //
 // Usage:
-//   node --env-file=.env.local scripts/promote-tests-to-prod.mjs                  # print the plan
-//   node --env-file=.env.local scripts/promote-tests-to-prod.mjs --apply          # write to prod
-//   node --env-file=.env.local scripts/promote-tests-to-prod.mjs --only="Test name,67d9820a825587c7cc6d534d"
+//   npx --no -- tsx --env-file=.env.local scripts/promote-tests-to-prod.mts                  # print the plan
+//   npx --no -- tsx --env-file=.env.local scripts/promote-tests-to-prod.mts --apply          # write to prod
+//   npx --no -- tsx --env-file=.env.local scripts/promote-tests-to-prod.mts --only="Test name,67d9820a825587c7cc6d534d"
 import { MongoClient, BSON } from "mongodb";
+import type { Document } from "mongodb";
 
 const SOURCE_DB = "piznay_sebe_staging";
 const TARGET_DB = "piznay_sebe";
@@ -28,21 +29,27 @@ if (!process.env.MONGODB_URI) {
 }
 
 // Compares documents regardless of field order.
-const canonical = (value) => {
+const canonical = (value: unknown): unknown => {
   if (Array.isArray(value)) return value.map(canonical);
   if (value && typeof value === "object") {
     return Object.fromEntries(
       Object.keys(value)
         .sort()
-        .map((key) => [key, canonical(value[key])])
+        .map((key) => [key, canonical((value as Record<string, unknown>)[key])])
     );
   }
   return value;
 };
-const fingerprint = (doc) =>
+const fingerprint = (doc: Document) =>
   JSON.stringify(canonical(BSON.EJSON.serialize(doc, { relaxed: false })));
 
-const label = (doc) => `${doc.name ?? "(untitled)"} [${doc._id}]`;
+const label = (doc: Document) => `${doc.name ?? "(untitled)"} [${doc._id}]`;
+
+// Reads a field of a caught value for the error line; anything can be thrown.
+const errorField = (error: unknown, key: string): unknown =>
+  error && typeof error === "object"
+    ? (error as Record<string, unknown>)[key]
+    : undefined;
 
 const client = new MongoClient(process.env.MONGODB_URI);
 
@@ -70,8 +77,8 @@ try {
     }
   }
 
-  const toInsert = [];
-  const toUpdate = [];
+  const toInsert: Document[] = [];
+  const toUpdate: Document[] = [];
   let unchanged = 0;
   for (const doc of stagingDocs) {
     const prodDoc = prodById.get(String(doc._id));
@@ -109,7 +116,12 @@ try {
     );
   }
 } catch (error) {
-  console.error("Error:", error.codeName || error.name, "-", error.message);
+  console.error(
+    "Error:",
+    errorField(error, "codeName") || errorField(error, "name"),
+    "-",
+    errorField(error, "message")
+  );
   process.exitCode = 1;
 } finally {
   await client.close();

@@ -15,14 +15,14 @@ const eslintConfig = defineConfig([
   {
     ignores: [".next/**", "out/**", "build/**", ".vercel/**", "coverage/**", "next-env.d.ts"],
   },
-  // Flat config lints only .js, .mjs and .cjs by default; without this entry .jsx, .ts and .tsx files are skipped.
+  // Flat config lints only .js, .mjs and .cjs by default; without this entry .jsx, .ts, .tsx and .mts files are skipped.
   {
-    files: ["**/*.{js,jsx,mjs,ts,tsx}"],
+    files: ["**/*.{js,jsx,mjs,ts,tsx,mts}"],
   },
   ...compat.extends("next/core-web-vitals"),
   // TypeScript rules apply to TypeScript files only, so JavaScript is linted as before until it is converted.
   {
-    files: ["**/*.{ts,tsx}"],
+    files: ["**/*.{ts,tsx,mts}"],
     extends: [tseslint.configs.recommended],
   },
 ]);
