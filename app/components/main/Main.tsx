@@ -48,7 +48,11 @@ export default function Main({ selectedTest, setSelectedTest }: MainProps) {
           onClick={() => setIsTestOpen(false)}
         />
       )}
-      <TestList isOpen={isTestListOpen} onSelectTest={handleSelectTest} />
+      <TestList
+        isOpen={isTestListOpen}
+        selectedTestId={selectedTest?._id}
+        onSelectTest={handleSelectTest}
+      />
       <Test key={selectedTest?._id} test={selectedTest} />
     </main>
   );

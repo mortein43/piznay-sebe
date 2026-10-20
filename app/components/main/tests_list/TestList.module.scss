@@ -1,72 +1,143 @@
 @use "../../../styles/media.scss" as *;
-
-.testList_wrapper {
-  padding: 10px;
-  border-top: 2px solid rgb(105, 44, 44);
-  border-radius: 10px 10px 0 0;
-  text-align: center;
-}
-
-.testList_title {
-  font-weight: bold;
-  margin-bottom: 15px;
-}
+@use "../../../styles/tokens.scss" as *;
 
 .testList {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  gap: 12px;
+  padding: 24px 16px;
+  border: 1px solid $color-border;
+  border-radius: $radius-lg;
+  background: $color-surface;
+  box-shadow: $shadow-card;
 
-  max-height: 450px;
-  overflow: auto;
-  padding-right: 15px;
-
-  &::-webkit-scrollbar {
-    width: 8px; // scrollbar width
+  &__title {
+    margin: 0;
+    padding: 0 8px;
+    font-family: $font-heading;
+    font-size: 22px;
+    font-weight: 600;
   }
 
-  &::-webkit-scrollbar-track {
-    background: transparent; // scrollbar track background
-  }
+  &__items {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    max-height: 560px;
+    margin: 0;
+    padding: 0 4px 0 0;
+    list-style: none;
+    overflow-y: auto;
 
-  &::-webkit-scrollbar-thumb {
-    background-color: lightgray;
-    border-radius: 4px;
-  }
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
 
-  /*border-right: 2px solid rgb(105, 44, 44);*/
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $color-lavender;
+      border-radius: $radius-pill;
+    }
+  }
 
   &__item {
-    border-bottom: 1px solid black;
-    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    min-height: 44px;
+    padding: 10px 12px;
+    border: none;
+    border-radius: 14px;
+    background: none;
+    color: $color-text;
+    font-family: $font-body;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.35;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+
+    @include hover {
+      background: $color-lavender-soft;
+    }
+
+    &:focus-visible {
+      outline: none;
+      box-shadow: $focus-ring;
+    }
   }
 
-  &__item:hover {
-    cursor: pointer;
-    opacity: 0.75;
+  // A dot marks the test that is open in the panel.
+  &__item_selected {
+    background: $color-lavender;
+    font-weight: 700;
+
+    @include hover {
+      background: $color-lavender;
+    }
+
+    &::before {
+      content: "";
+      flex-shrink: 0;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: $color-progress;
+    }
+  }
+
+  @include tablet {
+    padding: 20px 12px;
+  }
+
+  @include mobile {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 101;
+    width: min(310px, 85vw);
+    height: 100vh;
+    box-sizing: border-box;
+    padding: 96px 16px 24px;
+    border: none;
+    border-radius: 0 $radius-xl $radius-xl 0;
+    box-shadow: $shadow-drawer;
+    // Hidden drawer stays out of the tab order; visibility flips after the slide-out ends.
+    visibility: hidden;
+    transform: translateX(-110%);
+    transition:
+      transform 0.3s ease-in-out,
+      visibility 0s linear 0.3s;
+
+    &__items {
+      max-height: none;
+      flex: 1;
+      min-height: 0;
+    }
+
+    &__item {
+      min-height: 48px;
+    }
   }
 }
 
 @include mobile {
-  .testList_wrapper {
-    position: fixed;
-    top: 0;
-    left: -250px;
-    width: 250px;
-    height: 100vh;
-    background: white;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
-    transition: left 0.3s ease-in-out;
-    padding: 20px;
-    z-index: 101;
-    padding-top: 30%;
+  .testList_open {
+    visibility: visible;
+    transform: translateX(0);
+    transition: transform 0.3s ease-in-out;
   }
+}
 
-  .testList_title {
-    margin-bottom: 0;
-  }
-
-  .testList_wrapper.open {
-    left: 0;
+@include reduced-motion {
+  .testList,
+  .testList_open,
+  .testList__item {
+    transition: none;
   }
 }
