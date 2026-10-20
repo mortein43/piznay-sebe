@@ -9,10 +9,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 ```bash
-npm run dev      # dev server with Turbopack on http://localhost:3000
-npm run build    # production build
-npm run start    # serve the production build
-npm run lint     # eslint CLI with next/core-web-vitals over .js, .jsx and .mjs
+npm run dev        # dev server with Turbopack on http://localhost:3000
+npm run build      # production build
+npm run start      # serve the production build
+npm run lint       # eslint CLI with next/core-web-vitals over .js, .jsx and .mjs, plus typescript-eslint over .ts and .tsx
+npm run typecheck  # tsc --noEmit (strict; JavaScript is allowed but not type-checked until it is converted)
 ```
 
 There is no automated test suite. ("Tests" in this codebase and in commit messages means the psychological quizzes stored in MongoDB.)
@@ -27,6 +28,7 @@ Requires `MONGODB_URI` in `.env.local`; `app/lib/mongodb.js` throws at import ti
   - `fix/` — bug fixes (e.g. `fix/PS-14-empty-test-list`)
   - `chore/` — maintenance that doesn't change app behavior: dependency upgrades, config, tooling, scripts, docs (e.g. `chore/PS-15-upgrade-next`)
   - Work with no Jira issue drops the key: `<prefix>/<short-kebab-description>`.
+- CI (`.github/workflows/ci.yml`) runs lint, typecheck and build on every pull request into `staging` and `main`.
 - `main` is production: it only receives `staging → main` PRs (use a merge commit, not squash), and every push to it redeploys prod on Vercel.
 - Hotfixes branch from `main`, merge into `main`, then `main` is merged back into `staging`.
 - Test content lives in MongoDB, not in git, so merging code does not move it. New or edited tests are made in `piznay_sebe_staging`, checked on staging, then promoted with `node --env-file=.env.local scripts/promote-tests-to-prod.mjs` (prints the plan; add `--apply` to write, `--only="<name or _id>,..."` to limit). It upserts by `_id` and never deletes from prod.
@@ -66,5 +68,5 @@ docs/epics/
 - Each component has a co-located `*.module.scss` using BEM-style class names (`block__element`).
 - Responsive breakpoints are SCSS mixins in `app/styles/media.scss` (`desktop`, `tablet`, `mobile`, `mobile-s`, plus `*-above` variants); import with `@use "../../../styles/media.scss" as *;` (relative path).
 - Tailwind v4 is wired in via `app/styles/globals.scss` (`@use "tailwindcss"`) and PostCSS, but components rely almost entirely on SCSS modules.
-- Path alias `@/*` maps to the repo root (`jsconfig.json`).
+- Path alias `@/*` maps to the repo root (`tsconfig.json`).
 - SEO metadata, OG tags and Google site verification are in `app/layout.js`; `app/robots.txt` and `app/sitemap.xml` are static files.
