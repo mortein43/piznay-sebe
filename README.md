@@ -49,7 +49,8 @@ Requires Node.js 20.6+ (the maintenance scripts in `scripts/` run with `node --e
 | `npm run dev` | Dev server with Turbopack on http://localhost:3000 |
 | `npm run build` | Production build |
 | `npm run start` | Serve the production build |
-| `npm run lint` | ESLint (`next/core-web-vitals`) over `.js`, `.jsx` and `.mjs` |
+| `npm run lint` | ESLint (`next/core-web-vitals`) over `.js`, `.jsx` and `.mjs`, plus `typescript-eslint` over `.ts` and `.tsx` |
+| `npm run typecheck` | TypeScript check (`tsc --noEmit`, strict) |
 
 There is no automated test suite. "Tests" in this project usually means the psychological quizzes stored in MongoDB.
 
