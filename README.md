@@ -15,11 +15,11 @@ Never commit Vercel share links (`?_vercel_share=...`) or other secrets: a share
 
 ## Tech stack
 
-Next.js 15 (React 19) in plain JavaScript, SCSS modules, MongoDB, hosted on Vercel.
+Next.js 15 (React 19) in strict TypeScript, SCSS modules, MongoDB, hosted on Vercel.
 
 ## Local setup
 
-Requires Node.js 20.6+ (the maintenance scripts in `scripts/` run with `node --env-file`) and npm.
+Requires Node.js 20.6+ (the maintenance scripts in `scripts/` run with `npx --no -- tsx --env-file`, which hands the flag to Node) and npm.
 
 1. Install dependencies:
 
@@ -49,7 +49,7 @@ Requires Node.js 20.6+ (the maintenance scripts in `scripts/` run with `node --e
 | `npm run dev` | Dev server with Turbopack on http://localhost:3000 |
 | `npm run build` | Production build |
 | `npm run start` | Serve the production build |
-| `npm run lint` | ESLint (`next/core-web-vitals`) over `.js`, `.jsx` and `.mjs`, plus `typescript-eslint` over `.ts` and `.tsx` |
+| `npm run lint` | ESLint (`next/core-web-vitals`) over `.js`, `.jsx`, `.mjs`, `.ts`, `.tsx` and `.mts`, plus `typescript-eslint` over `.ts`, `.tsx` and `.mts` |
 | `npm run typecheck` | TypeScript check (`tsc --noEmit`, strict) |
 
 There is no automated test suite. "Tests" in this project usually means the psychological quizzes stored in MongoDB.
