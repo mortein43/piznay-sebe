@@ -26,10 +26,7 @@ export default function TestList({ isOpen, onSelectTest }) {
             <li
               key={test._id}
               className={styles.testList__item}
-              onClick={() => {
-                console.log("Selected test:", test);
-                onSelectTest(test);
-              }}
+              onClick={() => onSelectTest(test)}
             >
               {test.name}
             </li>

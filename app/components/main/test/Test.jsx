@@ -4,6 +4,17 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 
 export default function Test({ test }) {
+  const [isDisabled, setIsDisabled] = useState(false);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [scores, setScores] = useState({});
+  const [showResult, setShowResult] = useState(false);
+
+  useEffect(() => {
+    setCurrentQuestionIndex(0);
+    setScores({});
+    setShowResult(false);
+  }, [test]);
+
   if (!test) {
     return (
       <section className={styles.test}>
@@ -22,18 +33,16 @@ export default function Test({ test }) {
     );
   }
 
-  const [isDisabled, setIsDisabled] = useState(false);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [scores, setScores] = useState({});
-  const [showResult, setShowResult] = useState(false);
+  if (!Array.isArray(test.questions) || test.questions.length === 0) {
+    return (
+      <section className={styles.test}>
+        <h2 className={styles.test__name}>{test.name}</h2>
+        <p className={styles.test__title}>У цьому тесті поки немає питань.</p>
+      </section>
+    );
+  }
 
-  useEffect(() => {
-    setCurrentQuestionIndex(0);
-    setScores({});
-    setShowResult(false);
-  }, [test]);
-
-  const currentQuestion = test?.questions?.[currentQuestionIndex] || null;
+  const currentQuestion = test.questions[currentQuestionIndex];
 
   const handleAnswerSelect = (answer) => {
     if (isDisabled) return;
@@ -99,13 +108,9 @@ export default function Test({ test }) {
         </section>
       ) : (
         <section className={styles.test__questionWrapper}>
-          {currentQuestion ? (
-            <h3 className={styles.test__questionText}>
-              {currentQuestion.question}
-            </h3>
-          ) : (
-            <h3>Помилка: питання не знайдено.</h3>
-          )}
+          <h3 className={styles.test__questionText}>
+            {currentQuestion.question}
+          </h3>
 
           <section className={styles.test__answersButtonsWrapper}>
             {Object.keys(currentQuestion.answers).map((answer, index) => (
