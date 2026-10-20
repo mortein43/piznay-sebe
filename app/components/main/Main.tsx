@@ -33,16 +33,20 @@ export default function Main({ selectedTest, setSelectedTest }: MainProps) {
   };
 
   return (
-    <main className={`${styles.main_wrapper} ${styles.myContainer}`}>
+    <main className={styles.main}>
       <button
-        className={styles.menuButton}
+        type="button"
+        className={styles.main__menuButton}
         onClick={() => setIsTestOpen(!isTestListOpen)}
       >
         {isTestListOpen ? "Закрити" : "Вибрати тест"}
       </button>
 
       {isTestListOpen && (
-        <div className={styles.overlay} onClick={() => setIsTestOpen(false)} />
+        <div
+          className={styles.main__overlay}
+          onClick={() => setIsTestOpen(false)}
+        />
       )}
       <TestList isOpen={isTestListOpen} onSelectTest={handleSelectTest} />
       <Test key={selectedTest?._id} test={selectedTest} />

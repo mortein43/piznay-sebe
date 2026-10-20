@@ -1,53 +1,54 @@
 @use "../../styles/media.scss" as *;
-.myContainer {
-  width: 80%;
+@use "../../styles/tokens.scss" as *;
+
+.main {
+  display: grid;
+  grid-template-columns: 320px minmax(0, 1fr);
+  gap: 32px;
+  align-items: start;
+  max-width: 1200px;
   margin: 0 auto;
-}
+  padding: 40px 24px 64px;
 
-.main_wrapper {
-  display: flex;
-  justify-content: space-around;
-  gap: 15px;
-  margin-top: 15px;
-  padding-inline: 10px;
-}
-
-.main_wrapper > :nth-child(2) {
-  flex: 1;
-}
-
-.main_wrapper > :nth-child(3) {
-  flex: 3;
-}
-
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 100;
-}
-
-.menuButton {
-  display: none;
-  margin: 0 auto;
-  padding: 10px 15px;
-  background: #c5bfb7;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-  z-index: 100;
-}
-
-@include mobile {
-  .main_wrapper {
-    display: flex;
-    flex-direction: column;
+  &__overlay {
+    position: fixed;
+    inset: 0;
+    background: $color-overlay;
+    z-index: 100;
   }
 
-  .menuButton {
-    display: block;
+  &__menuButton {
+    display: none;
+    justify-self: center;
+    min-height: 48px;
+    padding: 14px 32px;
+    border: none;
+    border-radius: $radius-pill;
+    background: $color-lavender;
+    color: $color-text;
+    font-family: $font-body;
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: none;
+      box-shadow: $focus-ring;
+    }
+  }
+
+  @include tablet {
+    grid-template-columns: 280px minmax(0, 1fr);
+    gap: 24px;
+  }
+
+  @include mobile {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+    padding: 16px 16px 40px;
+
+    &__menuButton {
+      display: block;
+    }
   }
 }
