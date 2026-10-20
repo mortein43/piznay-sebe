@@ -1,5 +1,15 @@
+import type { NextApiRequest, NextApiResponse } from "next";
+import type { WithId } from "mongodb";
 import clientPromise from "../../app/lib/mongodb";
-export default async function handler(req, res) {
+import type { Test } from "../../types/test";
+
+// The stored document: the driver adds _id as an ObjectId, which the JSON response turns into the string in Test.
+type TestDocument = Omit<Test, "_id">;
+
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<WithId<TestDocument>[] | { message: string }>
+) {
   // Read-only: tests reach prod only through scripts/promote-tests-to-prod.mjs.
   if (req.method !== "GET") {
     res.setHeader("Allow", "GET");
@@ -9,7 +19,7 @@ export default async function handler(req, res) {
   try {
     const client = await clientPromise;
     const db = client.db(process.env.MONGODB_DB || "piznay_sebe");
-    const collection = db.collection("tests");
+    const collection = db.collection<TestDocument>("tests");
 
     const tests = await collection.find({}).toArray();
     res.status(200).json(tests);
