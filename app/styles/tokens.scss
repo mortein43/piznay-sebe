@@ -1,0 +1,33 @@
+// Design tokens of the "quiet mirror" design (PS-22): soft pastel colours, type, radii and shadows.
+// Text colours pass WCAG AA on every background below; $color-lavender-mid and $color-progress never carry text.
+
+$color-paper: #fbf7f2;
+$color-surface: #fffdfb;
+$color-lavender: #e4def4;
+$color-lavender-soft: #f4f0fa;
+$color-lavender-mid: #b9aee0;
+$color-progress: #9d90cf;
+$color-progress-track: #ece7f6;
+$color-sage: #dceadf;
+$color-peach: #f7e1d3;
+$color-sky: #dce9f3;
+$color-border: #ece5dc;
+$color-border-answer: #e2d9ee;
+$color-text: #3b3748;
+$color-text-muted: #625d73;
+$color-overlay: rgba(59, 55, 72, 0.35);
+
+// CSS variables set on <html> by next/font in app/layout.tsx.
+$font-heading: var(--font-heading), Georgia, serif;
+$font-body: var(--font-body), system-ui, sans-serif;
+
+$radius-sm: 12px;
+$radius-md: 16px;
+$radius-lg: 24px;
+$radius-xl: 28px;
+$radius-pill: 999px;
+
+$shadow-card: 0 8px 24px rgba(59, 55, 72, 0.05);
+$shadow-drawer: 8px 0 32px rgba(59, 55, 72, 0.18);
+
+$focus-ring: 0 0 0 3px $color-lavender-mid;
