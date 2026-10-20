@@ -28,14 +28,17 @@ if (!process.env.MONGODB_URI) {
   process.exit(1);
 }
 
-// Compares documents regardless of field order.
-const canonical = (value: unknown): unknown => {
-  if (Array.isArray(value)) return value.map(canonical);
+// Compares documents regardless of field order, except inside `answers`: the order of answers is
+// the order users see, so reordering them is a change.
+const canonical = (value: unknown, keepOrder = false): unknown => {
+  if (Array.isArray(value)) return value.map((item) => canonical(item));
   if (value && typeof value === "object") {
+    const keys = Object.keys(value);
     return Object.fromEntries(
-      Object.keys(value)
-        .sort()
-        .map((key) => [key, canonical((value as Record<string, unknown>)[key])])
+      (keepOrder ? keys : keys.sort()).map((key) => [
+        key,
+        canonical((value as Record<string, unknown>)[key], key === "answers"),
+      ])
     );
   }
   return value;
