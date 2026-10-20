@@ -1,0 +1,86 @@
+@use "../../../styles/media.scss" as *;
+
+.editor {
+  max-width: 960px;
+  margin: 25px auto 60px;
+  padding-inline: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+
+  &__title {
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  &__subtitle {
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  &__meta,
+  &__hint {
+    font-size: 13px;
+    color: rgb(114, 99, 80);
+  }
+
+  &__notice {
+    padding: 8px 12px;
+    border-radius: 6px;
+    background: #e9dec8;
+  }
+
+  &__field,
+  &__questions {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  &__questions {
+    gap: 14px;
+  }
+
+  &__label {
+    font-weight: bold;
+    color: rgb(114, 99, 80);
+  }
+
+  &__input {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #c5bfb7;
+    border-radius: 6px;
+    background: #ffffff;
+    color: #2b2b2b;
+  }
+
+  &__addQuestion {
+    align-self: flex-start;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+
+  &__error {
+    font-size: 13px;
+    color: rgb(170, 30, 30);
+  }
+
+  &__success {
+    color: green;
+    font-weight: bold;
+  }
+
+  @include mobile {
+    padding-inline: 10px;
+
+    &__title {
+      font-size: 20px;
+    }
+  }
+}

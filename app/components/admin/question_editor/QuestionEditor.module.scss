@@ -1,0 +1,93 @@
+@use "../../../styles/media.scss" as *;
+
+.question {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 10px;
+  border-left: 4px solid rgb(105, 44, 44);
+  background: #f6f1e7;
+
+  &__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  &__number {
+    font-weight: bold;
+  }
+
+  &__controls {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  &__field,
+  &__answers {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  &__label {
+    font-size: 14px;
+    font-weight: bold;
+    color: rgb(114, 99, 80);
+  }
+
+  &__input {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #c5bfb7;
+    border-radius: 6px;
+    background: #ffffff;
+    color: #2b2b2b;
+  }
+
+  &__answer {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  &__answerInputs {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  &__answerLabel {
+    flex: 1;
+  }
+
+  &__answerScore {
+    width: 80px;
+    flex: none;
+  }
+
+  &__addAnswer {
+    align-self: flex-start;
+  }
+
+  &__error {
+    font-size: 13px;
+    color: rgb(170, 30, 30);
+  }
+
+  @include mobile {
+    padding: 10px;
+
+    &__answerInputs {
+      flex-wrap: wrap;
+    }
+
+    &__answerLabel {
+      flex-basis: 100%;
+    }
+  }
+}
