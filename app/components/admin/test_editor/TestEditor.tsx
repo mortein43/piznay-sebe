@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import styles from "./TestEditor.module.scss";
 import AdminButton from "../admin_button/AdminButton";
 import QuestionEditor from "../question_editor/QuestionEditor";
+import JsonImport from "../json_import/JsonImport";
 import { checkDraft, draftFromDocument, emptyDraft, moveItem, serverErrors } from "./testDraft";
 import type { FieldErrors, QuestionDraft, TestDraft } from "./testDraft";
 import type { IssuePath } from "../../../lib/testSchema";
@@ -34,12 +35,14 @@ const isIssueList = (value: unknown): value is { path: IssuePath }[] =>
 
 export default function TestEditor({ testId, initialDocument, canSave }: TestEditorProps) {
   const router = useRouter();
-  const [{ draft: initialDraft, droppedFields }] = useState(() =>
+  const [{ draft: initialDraft, droppedFields: initialDroppedFields }] = useState(() =>
     initialDocument === undefined
       ? { draft: emptyDraft(), droppedFields: [] }
       : draftFromDocument(initialDocument)
   );
   const [draft, setDraft] = useState<TestDraft>(initialDraft);
+  const [droppedFields, setDroppedFields] = useState<string[]>(initialDroppedFields);
+  const [importNotice, setImportNotice] = useState<string | null>(null);
   const [savedSnapshot, setSavedSnapshot] = useState(() => JSON.stringify(initialDraft));
   // Errors show after the first save attempt, or at once for a stored test that does not match the schema.
   const [showErrors, setShowErrors] = useState(initialDocument !== undefined);
@@ -64,6 +67,25 @@ export default function TestEditor({ testId, initialDocument, canSave }: TestEdi
   const update = (change: Partial<TestDraft>) => {
     setDraft((current) => ({ ...current, ...change }));
     setServerFieldErrors({});
+    setStatus(null);
+  };
+
+  const importDocument = (document: Record<string, unknown>, notice: string | null) => {
+    const imported = draftFromDocument(document);
+    // Imported rows get fresh keys, so they never collide with rows already on the page.
+    setDraft({
+      ...imported.draft,
+      questions: imported.draft.questions.map((question) => ({
+        ...question,
+        key: newKey(),
+        answers: question.answers.map((row) => ({ ...row, key: newKey() })),
+      })),
+    });
+    setDroppedFields(imported.droppedFields);
+    setImportNotice(notice);
+    setServerFieldErrors({});
+    // Shows at once what the imported test is missing.
+    setShowErrors(true);
     setStatus(null);
   };
 
@@ -145,6 +167,8 @@ export default function TestEditor({ testId, initialDocument, canSave }: TestEdi
     <section className={styles.editor}>
       <h1 className={styles.editor__title}>{testId ? "Редагування тесту" : "Новий тест"}</h1>
       {testId && <p className={styles.editor__meta}>_id: {testId}</p>}
+      {!testId && <JsonImport onImport={importDocument} />}
+      {importNotice && <p className={styles.editor__notice}>{importNotice}</p>}
       {droppedFields.length > 0 && (
         <p className={styles.editor__notice}>
           Ці поля редактор не підтримує, тож їх не буде збережено: {droppedFields.join(", ")}
