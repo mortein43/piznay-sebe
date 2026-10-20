@@ -5,7 +5,7 @@
 - **Epic:** [PS-6](../README.md)
 - **Mode:** feature · **Size:** M · **Tags:** [safety], [reversibility], [contracts], [clarity], [scope]
 - **Depends on:** [PS-8](PS-8-set-up-strict-typescript-and-ci.md), [PS-7](PS-7-add-epic-docs-to-repo.md), [PS-2](../../PS-1-prepare-project-for-further-work/tasks/PS-2-protect-production-data.md) (epic PS-1)
-- **Blocks:** [PS-23](https://mortein43-1788434116115.atlassian.net/browse/PS-23), [PS-24](https://mortein43-1788434116115.atlassian.net/browse/PS-24) (outside this epic)
+- **Blocks:** [PS-23](../../PS-23-add-admin-panel-on-staging.md), [PS-24](../../PS-24-add-user-accounts-and-saved-results.md) (standalone features)
 
 > Last synced with Jira on 2026-10-20. Jira is the source of truth for status.
 

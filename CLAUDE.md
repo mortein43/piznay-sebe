@@ -37,10 +37,12 @@ Requires `MONGODB_URI` in `.env.local`; `app/lib/mongodb.js` throws at import ti
 Epics and their tasks live in Jira (project `PS`), and a copy of each epic's specs is versioned in the repo:
 
 ```
-docs/epics/<epic key>-<short-kebab-name>/
-├── README.md                                  # the epic: goal, why, in/out of scope, success criteria, risks, task table
-└── tasks/
-    └── <task key>-<short-kebab-name>.md       # one per task: Jira link, type, what and why, acceptance criteria, dependencies
+docs/epics/
+├── <epic key>-<short-kebab-name>/
+│   ├── README.md                              # the epic: goal, why, in/out of scope, success criteria, risks, task table
+│   └── tasks/
+│       └── <task key>-<short-kebab-name>.md   # one per task: Jira link, type, what and why, acceptance criteria, dependencies
+└── <issue key>-<short-kebab-name>.md          # a standalone issue with no epic: same format, "Epic: none (standalone)"
 ```
 
 - All files are `.md` and in English; UI strings and proper names (e.g. Confluence space names) may be quoted in Ukrainian as they appear.
