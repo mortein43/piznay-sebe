@@ -9,6 +9,8 @@ export interface Question {
   scale: string;
   // Answer label -> score.
   answers: Record<string, number>;
+  // Present on some documents, not rendered.
+  currentAnswer?: string;
 }
 
 export interface Test {
@@ -22,6 +24,6 @@ export interface Test {
   interpretation: string;
   // The UI shows a message when questions are missing or empty.
   questions?: Question[];
-  // Present on some documents, not rendered.
-  title?: string;
+  // Present on some documents (a string or null), not rendered.
+  title?: string | null;
 }
