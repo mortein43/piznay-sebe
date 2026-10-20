@@ -92,38 +92,49 @@ export default function Test({ test }: { test: TestDocument | null }) {
         {test.description && (
           <p className={styles.test__description}>{test.description}</p>
         )}
-        <p className={styles.test__instruction}>{test.instruction}</p>
+        {!showResult && (
+          <p className={styles.test__instruction}>{test.instruction}</p>
+        )}
       </div>
       {showResult ? (
-        <section>
-          <h3 className={styles.test__resultTitle}>Тест завершено!</h3>
-          <p className={styles.test__resultTotal}>
-            Ваш результат: {totalScore}
-          </p>
-          {Object.keys(scores).length > 1 && (
-            <>
-              <br />
-              <h4 className={styles.test__resultTitleForScale}>
-                Результат по шкалах:
-              </h4>
-              <ul className={styles.test__resultForScale}>
-                {Object.entries(scores).map(([scale, score]) => (
-                  <li key={scale}>
-                    {scale}: {score}
-                  </li>
-                ))}
-              </ul>
-            </>
-          )}
-          <p className={styles.test__interpritation}>
-            {test.interpretation.split("  ").map((line, index) => (
-              <span key={index}>
-                {line}
-                <br />
-                <br />
-              </span>
-            ))}
-          </p>
+        <section className={styles.test__result}>
+          <div className={styles.test__summary}>
+            <p className={styles.test__score}>
+              <span className={styles.test__scoreLabel}>Ваш результат</span>
+              <span className={styles.test__scoreValue}>{totalScore}</span>
+            </p>
+            <div className={styles.test__summaryText}>
+              <h3 className={styles.test__resultTitle}>Тест завершено!</h3>
+              {Object.keys(scores).length > 1 && (
+                <>
+                  <h4 className={styles.test__scalesTitle}>
+                    Результат по шкалах:
+                  </h4>
+                  <ul className={styles.test__scales}>
+                    {Object.entries(scores).map(([scale, score]) => (
+                      <li key={scale} className={styles.test__scale}>
+                        <span className={styles.test__scaleName}>{scale}</span>
+                        <strong className={styles.test__scaleValue}>
+                          {score}
+                        </strong>
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              )}
+            </div>
+          </div>
+          <div className={styles.test__interpretation}>
+            {/* Double spaces mark paragraph breaks; empty pieces from leading or repeated breaks are skipped. */}
+            {test.interpretation
+              .split("  ")
+              .filter((paragraph) => paragraph.trim() !== "")
+              .map((paragraph, index) => (
+                <p key={index} className={styles.test__paragraph}>
+                  {paragraph}
+                </p>
+              ))}
+          </div>
         </section>
       ) : (
         <>

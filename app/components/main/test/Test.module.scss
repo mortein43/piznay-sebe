@@ -166,20 +166,113 @@
     }
   }
 
-  &__resultTitle,
-  &__resultTotal,
-  &__resultTitleForScale,
-  &__resultForScale {
-    color: green;
+  &__result {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  &__summary {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    padding: 28px 32px;
+    border-radius: $radius-lg;
+    background: $color-paper;
+  }
+
+  &__score {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 148px;
+    height: 148px;
+    margin: 0;
+    border-radius: 50%;
+    background: $color-sage;
+  }
+
+  &__scoreLabel {
+    color: $color-text-muted;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  &__scoreValue {
+    font-family: $font-heading;
+    font-size: 52px;
+    font-weight: 600;
+    line-height: 1.1;
+  }
+
+  &__summaryText {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 14px;
+    min-width: 0;
   }
 
   &__resultTitle {
-    margin-top: 15px;
+    margin: 0;
+    font-family: $font-heading;
+    font-size: 26px;
+    font-weight: 600;
   }
 
-  &__interpritation {
-    text-align: justify;
-    margin-top: 15px;
+  &__scalesTitle {
+    margin: 0;
+    color: $color-text-muted;
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  &__scales {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__scale {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 16px;
+    border-radius: $radius-sm;
+    background: $color-surface;
+    font-size: 16px;
+  }
+
+  &__scaleName {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  &__scaleValue {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  &__interpretation {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 32px;
+    border-radius: $radius-lg;
+    background: $color-peach;
+    font-size: 17px;
+    line-height: 1.75;
+    overflow-wrap: anywhere;
+  }
+
+  &__paragraph {
+    margin: 0;
   }
 
   @include tablet {
@@ -244,6 +337,59 @@
     &__answer {
       padding: 13px 24px;
       font-size: 16px;
+    }
+
+    &__summary {
+      flex-direction: column;
+      gap: 16px;
+      padding: 24px 16px;
+      border-radius: 20px;
+      text-align: center;
+    }
+
+    &__score {
+      width: 132px;
+      height: 132px;
+    }
+
+    &__scoreLabel {
+      font-size: 13px;
+    }
+
+    &__scoreValue {
+      font-size: 46px;
+    }
+
+    // Lets the title move above the score badge, as in the mobile design.
+    &__summaryText {
+      display: contents;
+    }
+
+    &__scales {
+      width: 100%;
+    }
+
+    &__resultTitle {
+      order: -1;
+      font-size: 22px;
+    }
+
+    &__scalesTitle {
+      font-size: 15px;
+    }
+
+    &__scale {
+      padding: 10px 14px;
+      font-size: 15px;
+      text-align: left;
+    }
+
+    &__interpretation {
+      gap: 14px;
+      padding: 22px 18px;
+      border-radius: 20px;
+      font-size: 16px;
+      line-height: 1.7;
     }
   }
 
