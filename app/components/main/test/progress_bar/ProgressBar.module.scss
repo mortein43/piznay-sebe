@@ -1,0 +1,57 @@
+@use "../../../../styles/media.scss" as *;
+@use "../../../../styles/tokens.scss" as *;
+
+.progressBar {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  &__label {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    color: $color-text-muted;
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  // A native <progress>: the browser exposes it as a progressbar, and the fill needs no inline width.
+  &__track {
+    display: block;
+    width: 100%;
+    height: 10px;
+    border: none;
+    border-radius: $radius-pill;
+    background: $color-progress-track;
+    overflow: hidden;
+    appearance: none;
+
+    &::-webkit-progress-bar {
+      border-radius: $radius-pill;
+      background: $color-progress-track;
+    }
+
+    &::-webkit-progress-value {
+      border-radius: $radius-pill;
+      background: $color-progress;
+      transition: width 0.4s ease;
+    }
+
+    &::-moz-progress-bar {
+      border-radius: $radius-pill;
+      background: $color-progress;
+    }
+  }
+
+  @include mobile {
+    &__label {
+      font-size: 14px;
+    }
+  }
+
+  @include reduced-motion {
+    &__track::-webkit-progress-value {
+      transition: none;
+    }
+  }
+}

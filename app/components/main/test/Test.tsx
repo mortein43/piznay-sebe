@@ -2,6 +2,7 @@
 import styles from "./Test.module.scss";
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import ProgressBar from "./progress_bar/ProgressBar";
 import type { ScaleScores, Test as TestDocument } from "../../../../types/test";
 
 export default function Test({ test }: { test: TestDocument | null }) {
@@ -9,27 +10,34 @@ export default function Test({ test }: { test: TestDocument | null }) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [scores, setScores] = useState<ScaleScores>({});
   const [showResult, setShowResult] = useState(false);
+  // The answer picked for the current question, highlighted until the next question shows.
+  const [chosenAnswer, setChosenAnswer] = useState<string | null>(null);
 
   useEffect(() => {
     setCurrentQuestionIndex(0);
     setScores({});
     setShowResult(false);
+    setChosenAnswer(null);
   }, [test]);
 
   if (!test) {
     return (
-      <section className={styles.test}>
-        <h2 className={styles.test__title}>
-          Виберіть тест, щоб почати проходження
-        </h2>
+      <section className={`${styles.test} ${styles.test_welcome}`}>
         <Image
           className={styles.test__logo}
           src="/logo.svg"
-          width={375}
-          height={375}
-          alt="logo"
+          width={240}
+          height={240}
+          alt=""
           priority={true}
         />
+        <h2 className={styles.test__title}>
+          Виберіть тест, щоб почати проходження
+        </h2>
+        <p className={styles.test__lead}>
+          Тут немає правильних чи неправильних відповідей — лише ви і ваші
+          відчуття. Оберіть тест у списку й відповідайте чесно, не поспішаючи.
+        </p>
       </section>
     );
   }
@@ -38,7 +46,7 @@ export default function Test({ test }: { test: TestDocument | null }) {
     return (
       <section className={styles.test}>
         <h2 className={styles.test__name}>{test.name}</h2>
-        <p className={styles.test__title}>У цьому тесті поки немає питань.</p>
+        <p className={styles.test__empty}>У цьому тесті поки немає питань.</p>
       </section>
     );
   }
@@ -51,6 +59,7 @@ export default function Test({ test }: { test: TestDocument | null }) {
     if (isDisabled) return;
 
     setIsDisabled(true);
+    setChosenAnswer(answer);
 
     const answerValue = currentQuestion.answers[answer];
 
@@ -67,17 +76,24 @@ export default function Test({ test }: { test: TestDocument | null }) {
       } else {
         setShowResult(true);
       }
+      setChosenAnswer(null);
       setIsDisabled(false);
     }, 500);
   };
 
   const totalScore = Object.values(scores).reduce((acc, val) => acc + val, 0);
+  // The bar moves as soon as an answer is picked, not after the 500 ms pause.
+  const answeredCount = currentQuestionIndex + (chosenAnswer !== null ? 1 : 0);
 
   return (
     <section className={styles.test}>
-      <h2 className={styles.test__name}>{test.name}</h2>
-      <p className={styles.test__description}>{test.description}</p>
-      <p className={styles.test__instruction}>{test.instruction}</p>
+      <div className={styles.test__header}>
+        <h2 className={styles.test__name}>{test.name}</h2>
+        {test.description && (
+          <p className={styles.test__description}>{test.description}</p>
+        )}
+        <p className={styles.test__instruction}>{test.instruction}</p>
+      </div>
       {showResult ? (
         <section>
           <h3 className={styles.test__resultTitle}>Тест завершено!</h3>
@@ -110,24 +126,34 @@ export default function Test({ test }: { test: TestDocument | null }) {
           </p>
         </section>
       ) : (
-        <section className={styles.test__questionWrapper}>
-          <h3 className={styles.test__questionText}>
-            {currentQuestion.question}
-          </h3>
+        <>
+          <ProgressBar
+            current={currentQuestionIndex + 1}
+            answered={answeredCount}
+            total={questions.length}
+          />
+          <section className={styles.test__question}>
+            <h3 className={styles.test__questionText}>
+              {currentQuestion.question}
+            </h3>
 
-          <section className={styles.test__answersButtonsWrapper}>
-            {Object.keys(currentQuestion.answers).map((answer, index) => (
-              <button
-                className={styles.test__button}
-                key={index}
-                onClick={() => handleAnswerSelect(answer)}
-                disabled={isDisabled}
-              >
-                {answer}
-              </button>
-            ))}
+            <div className={styles.test__answers}>
+              {Object.keys(currentQuestion.answers).map((answer, index) => (
+                <button
+                  type="button"
+                  className={`${styles.test__answer} ${
+                    answer === chosenAnswer ? styles.test__answer_chosen : ""
+                  }`}
+                  key={index}
+                  onClick={() => handleAnswerSelect(answer)}
+                  disabled={isDisabled}
+                >
+                  {answer}
+                </button>
+              ))}
+            </div>
           </section>
-        </section>
+        </>
       )}
     </section>
   );
