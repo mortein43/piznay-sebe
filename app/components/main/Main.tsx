@@ -1,10 +1,17 @@
 "use client";
 import { useState, useEffect } from "react";
+import type { Dispatch, SetStateAction } from "react";
 import styles from "./Main.module.scss";
 import TestList from "./tests_list/TestList";
 import Test from "./test/Test";
+import type { Test as TestDocument } from "../../../types/test";
 
-export default function Main({ selectedTest, setSelectedTest }) {
+interface MainProps {
+  selectedTest: TestDocument | null;
+  setSelectedTest: Dispatch<SetStateAction<TestDocument | null>>;
+}
+
+export default function Main({ selectedTest, setSelectedTest }: MainProps) {
   const [isTestListOpen, setIsTestOpen] = useState(false);
 
   useEffect(() => {
@@ -15,7 +22,7 @@ export default function Main({ selectedTest, setSelectedTest }) {
     }
   }, [isTestListOpen]);
 
-  const handleSelectTest = (test) => {
+  const handleSelectTest = (test: TestDocument) => {
     setSelectedTest(null);
     setTimeout(() => {
       if (test) {
