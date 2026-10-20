@@ -36,6 +36,8 @@ Requires Node.js 20.6+ (the maintenance scripts in `scripts/` run with `npx --no
 
    `MONGODB_URI` is required. `MONGODB_DB` is optional, but without it the app uses `piznay_sebe`, **the production database**, so set it to `piznay_sebe_staging` for local work.
 
+   The admin panel (`/admin`, staging only) needs more keys; they are listed in [`CLAUDE.md`](CLAUDE.md#commands).
+
 3. Start the dev server and open http://localhost:3000:
 
    ```bash
