@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import "@/app/styles/globals.scss";
-import { Analytics } from "@vercel/analytics/react";
+import SiteAnalytics from "./components/site_analytics/SiteAnalytics";
 export const metadata: Metadata = {
   title: "Пізнай себе – Психологічні тести для самодіагностики",
   description:
@@ -37,7 +37,7 @@ export default function RootLayout({
       </head>
       <body className={`antialiased`}>
         {children}
-        <Analytics />
+        <SiteAnalytics />
       </body>
     </html>
   );
