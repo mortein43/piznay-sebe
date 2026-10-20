@@ -71,3 +71,9 @@ $mobile-s: 480px;
     }
   }
 }
+
+@mixin reduced-motion {
+  @media (prefers-reduced-motion: reduce) {
+    @content;
+  }
+}
