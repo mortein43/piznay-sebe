@@ -66,6 +66,14 @@
     flex-wrap: wrap;
   }
 
+  &__preview {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 15px;
+    border-top: 2px dashed #c5bfb7;
+  }
+
   &__error {
     font-size: 13px;
     color: rgb(170, 30, 30);

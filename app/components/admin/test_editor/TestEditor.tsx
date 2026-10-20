@@ -5,6 +5,7 @@ import styles from "./TestEditor.module.scss";
 import AdminButton from "../admin_button/AdminButton";
 import QuestionEditor from "../question_editor/QuestionEditor";
 import JsonImport from "../json_import/JsonImport";
+import Test from "../../main/test/Test";
 import { checkDraft, draftFromDocument, emptyDraft, moveItem, serverErrors } from "./testDraft";
 import type { FieldErrors, QuestionDraft, TestDraft } from "./testDraft";
 import type { IssuePath } from "../../../lib/testSchema";
@@ -49,6 +50,8 @@ export default function TestEditor({ testId, initialDocument, canSave }: TestEdi
   const [serverFieldErrors, setServerFieldErrors] = useState<FieldErrors>({});
   const [saving, setSaving] = useState(false);
   const [status, setStatus] = useState<{ kind: "ok" | "error"; text: string } | null>(null);
+  // Changing the key restarts the preview; null hides it.
+  const [previewKey, setPreviewKey] = useState<number | null>(null);
   const keyCounter = useRef(0);
   const newKey = () => `n${keyCounter.current++}`;
 
@@ -244,6 +247,16 @@ export default function TestEditor({ testId, initialDocument, canSave }: TestEdi
       </label>
 
       <div className={styles.editor__actions}>
+        <AdminButton
+          onClick={() => setPreviewKey((key) => (key ?? 0) + 1)}
+          disabled={!checked.input}
+          title={checked.input ? undefined : "Спершу виправте помилки"}
+        >
+          {previewKey === null ? "Попередній перегляд" : "Почати перегляд знову"}
+        </AdminButton>
+        {previewKey !== null && (
+          <AdminButton onClick={() => setPreviewKey(null)}>Закрити перегляд</AdminButton>
+        )}
         <AdminButton variant="primary" onClick={save} disabled={!canSave || saving}>
           {saving ? "Збереження…" : "Зберегти"}
         </AdminButton>
@@ -253,6 +266,18 @@ export default function TestEditor({ testId, initialDocument, canSave }: TestEdi
         <p className={status.kind === "ok" ? styles.editor__success : styles.editor__error}>
           {status.text}
         </p>
+      )}
+
+      {previewKey !== null && (
+        <div className={styles.editor__preview}>
+          <h2 className={styles.editor__subtitle}>Попередній перегляд (як на сайті, не зберігається)</h2>
+          {checked.input ? (
+            // The public quiz component, so scoring and results are exactly the site's.
+            <Test key={previewKey} test={{ ...checked.input, _id: "preview" }} />
+          ) : (
+            <p className={styles.editor__error}>У тесті є помилки: виправте їх, щоб побачити перегляд.</p>
+          )}
+        </div>
       )}
     </section>
   );
