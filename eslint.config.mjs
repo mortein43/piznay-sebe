@@ -22,7 +22,7 @@ const eslintConfig = defineConfig([
   ...compat.extends("next/core-web-vitals"),
   // TypeScript rules apply to TypeScript files only, so JavaScript is linted as before until it is converted.
   {
-    files: ["**/*.{ts,tsx,mts,cts}"],
+    files: ["**/*.{ts,tsx}"],
     extends: [tseslint.configs.recommended],
   },
 ]);
