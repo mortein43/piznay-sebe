@@ -1,13 +1,16 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import "@/app/styles/globals.scss";
 import { Analytics } from "@vercel/analytics/react";
-export const metadata = {
+export const metadata: Metadata = {
   title: "Пізнай себе – Психологічні тести для самодіагностики",
   description:
     "Пройдіть безкоштовні психологічні тести, дізнайтеся більше про свої емоції, характер і особистість. Пізнайте себе краще!",
 };
 
-export default function RootLayout({ children }) {
+export default function RootLayout({
+  children,
+}: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="en">
       <head>

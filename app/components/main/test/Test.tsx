@@ -2,11 +2,12 @@
 import styles from "./Test.module.scss";
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import type { ScaleScores, Test as TestDocument } from "../../../../types/test";
 
-export default function Test({ test }) {
+export default function Test({ test }: { test: TestDocument | null }) {
   const [isDisabled, setIsDisabled] = useState(false);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [scores, setScores] = useState({});
+  const [scores, setScores] = useState<ScaleScores>({});
   const [showResult, setShowResult] = useState(false);
 
   useEffect(() => {
@@ -42,9 +43,11 @@ export default function Test({ test }) {
     );
   }
 
-  const currentQuestion = test.questions[currentQuestionIndex];
+  // Narrowed by the check above; a local keeps the narrowing inside the callbacks below.
+  const questions = test.questions;
+  const currentQuestion = questions[currentQuestionIndex];
 
-  const handleAnswerSelect = (answer) => {
+  const handleAnswerSelect = (answer: string) => {
     if (isDisabled) return;
 
     setIsDisabled(true);
@@ -59,7 +62,7 @@ export default function Test({ test }) {
     });
 
     setTimeout(() => {
-      if (currentQuestionIndex < test.questions.length - 1) {
+      if (currentQuestionIndex < questions.length - 1) {
         setCurrentQuestionIndex((prev) => prev + 1);
       } else {
         setShowResult(true);

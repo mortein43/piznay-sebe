@@ -1,14 +1,20 @@
 "use client";
 import styles from "./TestList.module.scss";
 import { useEffect, useState } from "react";
+import type { Test } from "../../../../types/test";
 
-export default function TestList({ isOpen, onSelectTest }) {
-  const [tests, setTests] = useState([]);
+interface TestListProps {
+  isOpen: boolean;
+  onSelectTest: (test: Test) => void;
+}
+
+export default function TestList({ isOpen, onSelectTest }: TestListProps) {
+  const [tests, setTests] = useState<Test[]>([]);
 
   useEffect(() => {
     const fetchTests = async () => {
       const res = await fetch("/api/test");
-      const data = await res.json();
+      const data: Test[] = await res.json();
       setTests(data);
     };
 

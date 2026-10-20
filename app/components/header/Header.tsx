@@ -1,4 +1,3 @@
-import Link from "next/link";
 import Image from "next/image";
 import styles from "./Header.module.scss";
 import { Caveat } from "next/font/google";
@@ -8,7 +7,7 @@ const caveat = Caveat({
   subsets: ["cyrillic"],
 });
 
-export default function Header({ onLogoClick }) {
+export default function Header({ onLogoClick }: { onLogoClick: () => void }) {
   return (
     <>
       <header className={styles.header}>

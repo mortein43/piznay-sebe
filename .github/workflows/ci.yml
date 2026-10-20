@@ -38,5 +38,5 @@ jobs:
 
       - run: npm run build
         env:
-          # app/lib/mongodb.js throws at import without it; nothing listens on port 1, so the build never connects.
+          # app/lib/mongodb.ts throws at import without it; nothing listens on port 1, so the build never connects.
           MONGODB_URI: mongodb://127.0.0.1:1/x
