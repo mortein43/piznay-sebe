@@ -1,0 +1,55 @@
+@use "../../../styles/media.scss" as *;
+
+.adminHeader {
+  background: #e9dec8;
+  padding: 12px 20px;
+
+  &__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+
+  &__nav {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  &__link {
+    font-weight: bold;
+    color: rgb(105, 44, 44);
+
+    @include hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &__login {
+    color: rgb(114, 99, 80);
+  }
+
+  &__warning {
+    margin-top: 10px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    background: rgb(105, 44, 44);
+    color: #ffffff;
+  }
+
+  @include mobile {
+    padding: 10px;
+
+    &__nav {
+      gap: 12px;
+    }
+  }
+}

@@ -1,0 +1,53 @@
+@use "../../../styles/media.scss" as *;
+
+.button {
+  border: none;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &_primary {
+    padding: 12px 26px;
+    background-color: rgb(125, 218, 113);
+    color: rgb(114, 99, 80);
+    box-shadow: 6px 6px 14px #b8b8b8, -6px -6px 14px #ffffff;
+
+    &:not(:disabled) {
+      @include hover {
+        box-shadow: 3px 3px 8px #b8b8b8, -3px -3px 8px #ffffff;
+      }
+    }
+  }
+
+  &_secondary {
+    padding: 10px 20px;
+    background-color: #c5bfb7;
+    color: #2b2b2b;
+
+    &:not(:disabled) {
+      @include hover {
+        background-color: #b3aca3;
+      }
+    }
+  }
+
+  &_small {
+    padding: 4px 10px;
+    border-radius: 6px;
+    background-color: #e9dec8;
+    color: #2b2b2b;
+    font-weight: normal;
+
+    &:not(:disabled) {
+      @include hover {
+        background-color: #d9ccb2;
+      }
+    }
+  }
+}
