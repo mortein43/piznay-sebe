@@ -20,7 +20,7 @@ const eslintConfig = defineConfig([
     files: ["**/*.{js,jsx,mjs,ts,tsx,mts}"],
   },
   ...compat.extends("next/core-web-vitals"),
-  // TypeScript rules apply to TypeScript files only, so JavaScript is linted as before until it is converted.
+  // TypeScript rules apply to TypeScript files only; the remaining JavaScript is config (eslint.config.mjs, postcss.config.mjs).
   {
     files: ["**/*.{ts,tsx,mts}"],
     extends: [tseslint.configs.recommended],
