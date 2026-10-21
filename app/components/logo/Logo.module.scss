@@ -1,0 +1,32 @@
+@use "../../styles/tokens.scss" as *;
+
+.logo {
+  display: block;
+  flex-shrink: 0;
+  width: 56px;
+  height: auto;
+  aspect-ratio: 1;
+
+  &__ground {
+    fill: $color-lavender-soft;
+  }
+
+  &__head {
+    fill: $color-accent;
+  }
+
+  &__stem {
+    fill: none;
+    stroke: $color-sage-mid;
+    stroke-width: 2;
+    stroke-linecap: round;
+  }
+
+  &__leaf {
+    fill: $color-sage-mid;
+  }
+
+  &__leafLight {
+    fill: $color-sage-soft;
+  }
+}

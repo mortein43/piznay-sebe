@@ -1,47 +1,77 @@
 @use "../../styles/media.scss" as *;
+@use "../../styles/tokens.scss" as *;
 
-@keyframes slideInLeftAndSpin {
-  0% {
-    transform: translateX(-300%) rotate(0deg); /* Start: off to the left, not rotated */
-    opacity: 0;
-  }
-  100% {
-    transform: translateX(0) rotate(360deg); /* End: in place, after a full spin */
-    opacity: 1;
-  }
-}
 .header {
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  background: #e9dec8;
-  padding-block: 10px;
-  padding-inline: 10px;
+  border-bottom: 1px solid $color-border;
+  background: $color-page;
+
+  &__inner {
+    max-width: $content-max-width;
+    margin: 0 auto;
+    padding: 20px $space-6;
+    display: flex;
+    align-items: center;
+    gap: $space-4;
+  }
+
+  &__home {
+    display: flex;
+    padding: $space-1;
+    border: none;
+    border-radius: 50%;
+    background: none;
+    cursor: pointer;
+    transition: opacity $duration-fast ease;
+
+    @include focus-ring;
+
+    @include hover {
+      opacity: 0.85;
+    }
+
+    @include reduced-motion {
+      transition: none;
+    }
+  }
 
   &__logo {
-    width: 175px;
-    aspect-ratio: 1;
-    animation: slideInLeftAndSpin 3s ease-out forwards;
+    width: 56px;
   }
 
-  &__logo:hover {
-    opacity: 0.75;
-    cursor: pointer;
+  &__text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
   }
 
   &__title {
-    font-size: 5em;
-    font-weight: 500;
+    font-family: $font-display;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 1.1;
+  }
+
+  &__tagline {
+    color: $color-ink-soft;
+    font-size: 15px;
   }
 
   @include mobile {
+    &__inner {
+      padding: 14px $space-4;
+      gap: $space-3;
+    }
+
     &__logo {
-      width: 75px;
-      aspect-ratio: 1;
+      width: 44px;
     }
 
     &__title {
-      font-size: 3.5em;
+      font-size: 24px;
+    }
+
+    &__tagline {
+      font-size: 13px;
     }
   }
 }
