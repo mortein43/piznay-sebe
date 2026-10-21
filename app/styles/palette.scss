@@ -1,0 +1,45 @@
+// Design tokens from the PS-22 redesign: a soft pastel palette on warm paper.
+// Text colours keep at least 4.5:1 contrast on every surface colour below.
+
+// Surfaces
+$paper: #fbf8f3;
+$card: #fffdfa;
+$card-muted: #f6f2ec;
+$border: #eae3d8;
+
+// Text
+$ink: #2f2a3b;
+$ink-muted: #5f5970;
+
+// Lavender: reflection (logo, hover, menu, progress)
+$lavender-50: #f1edf8;
+$lavender-100: #eae3f4;
+$lavender-200: #d6ccea;
+$lavender-400: #9c8dcb;
+$lavender-700: #6e5f9e;
+
+// Sage: calm choices (answers, scores)
+$sage-100: #e3eee6;
+$sage-200: #d3e4d8;
+$sage-300: #b7cfbe;
+
+// Rose: the result summary
+$rose-100: #f6e6e3;
+
+$overlay: rgba(47, 42, 59, 0.35);
+$shadow-card: 0 8px 24px rgba(94, 79, 140, 0.06);
+
+$radius-card: 24px;
+$radius-card-mobile: 20px;
+$radius-pill: 999px;
+
+$font-heading: var(--font-heading), Georgia, serif;
+$font-body: var(--font-body), system-ui, sans-serif;
+
+// Keyboard focus ring for every interactive element.
+@mixin focus-ring {
+  &:focus-visible {
+    outline: 3px solid $lavender-700;
+    outline-offset: 2px;
+  }
+}

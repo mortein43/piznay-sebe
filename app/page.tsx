@@ -1,8 +1,9 @@
 "use client";
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import Header from "./components/header/Header";
 import Main from "./components/main/Main";
 import type { Test } from "../types/test";
+import styles from "./page.module.scss";
 
 export default function Home() {
   const [selectedTest, setSelectedTest] = useState<Test | null>(null);
@@ -11,9 +12,9 @@ export default function Home() {
     setSelectedTest(null);
   };
   return (
-    <>
+    <div className={styles.page}>
       <Header onLogoClick={resetTest} />
       <Main selectedTest={selectedTest} setSelectedTest={setSelectedTest} />
-    </>
+    </div>
   );
 }

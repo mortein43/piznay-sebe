@@ -1,0 +1,8 @@
+@use "./styles/palette.scss" as *;
+
+.page {
+  min-height: 100vh;
+  background: $paper;
+  color: $ink;
+  font-family: $font-body;
+}
