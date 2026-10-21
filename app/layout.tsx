@@ -1,7 +1,25 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { Lora, Nunito } from "next/font/google";
 import "@/app/styles/globals.scss";
+import styles from "./layout.module.scss";
 import { Analytics } from "@vercel/analytics/react";
+
+// Self-hosted at build time by next/font; exposed as CSS variables that app/styles/tokens.scss reads.
+const displayFont = Lora({
+  weight: ["500", "600"],
+  subsets: ["latin", "cyrillic"],
+  display: "swap",
+  variable: "--font-display",
+});
+
+const bodyFont = Nunito({
+  weight: ["400", "600", "700"],
+  subsets: ["latin", "cyrillic"],
+  display: "swap",
+  variable: "--font-body",
+});
+
 export const metadata: Metadata = {
   title: "Пізнай себе – Психологічні тести для самодіагностики",
   description:
@@ -35,7 +53,9 @@ export default function RootLayout({
         <meta property="og:url" content="https://piznay-sebe.pp.ua/" />
         <meta property="og:type" content="website" />
       </head>
-      <body className={`antialiased`}>
+      <body
+        className={`${displayFont.variable} ${bodyFont.variable} ${styles.layout}`}
+      >
         {children}
         <Analytics />
       </body>

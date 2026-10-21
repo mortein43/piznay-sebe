@@ -1,0 +1,76 @@
+// Design tokens of the PS-22 design (Claude Design canvas "Пізнай себе — redesign (PS-22)").
+// Use with `@use "<relative path>/styles/tokens.scss" as *;`, like media.scss.
+
+// Surfaces
+$color-page: #fbf7f2;
+$color-card: #ffffff;
+$color-border: #e8e1ef;
+$color-lavender-soft: #efeaf8;
+$color-lavender-chosen: #ddd4f1;
+$color-menu: #e9dff5;
+$color-sage-soft: #e6f0e9;
+$color-sage-mid: #b9d3c1;
+$color-peach-soft: #fcebe1;
+$color-overlay: rgba(47, 42, 59, 0.35);
+
+// Text (each passes WCAG AA on every surface above)
+$color-ink: #2f2a3b;
+$color-ink-soft: #5f5870;
+$color-lavender-deep: #5e4e8c;
+$color-sage-deep: #3e6650;
+$color-peach-deep: #87482c;
+
+// Accents and controls
+$color-accent: #6b5aa6;
+$color-progress: #8b78c4;
+$color-progress-track: #ece6f4;
+$color-answer-border: #9a8acf;
+
+// Typography: the CSS variables are set by next/font in app/layout.tsx
+$font-display: var(--font-display), Georgia, "Times New Roman", serif;
+$font-body: var(--font-body), system-ui, -apple-system, "Segoe UI", sans-serif;
+
+// Spacing, 4 px grid
+$space-1: 4px;
+$space-2: 8px;
+$space-3: 12px;
+$space-4: 16px;
+$space-5: 24px;
+$space-6: 32px;
+$space-7: 48px;
+$space-8: 64px;
+
+// Radii
+$radius-sm: 8px;
+$radius-md: 12px;
+$radius-lg: 16px;
+$radius-xl: 24px;
+$radius-pill: 999px;
+
+// Elevation
+$shadow-card: 0 8px 24px rgba(47, 42, 59, 0.06);
+$shadow-drawer: 8px 0 32px rgba(47, 42, 59, 0.12);
+
+// Motion
+$duration-fast: 150ms;
+$duration-base: 200ms;
+$duration-slow: 300ms;
+
+// Layout
+$content-max-width: 1200px;
+$reading-width: 70ch;
+
+// Keyboard focus ring, the same on every control
+@mixin focus-ring {
+  &:focus-visible {
+    outline: 2px solid $color-accent;
+    outline-offset: 3px;
+  }
+}
+
+// Turns transitions and animations off for people who ask for less motion
+@mixin reduced-motion {
+  @media (prefers-reduced-motion: reduce) {
+    @content;
+  }
+}
