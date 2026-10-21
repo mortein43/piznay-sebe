@@ -1,53 +1,72 @@
 @use "../../styles/media.scss" as *;
-.myContainer {
-  width: 80%;
+@use "../../styles/tokens.scss" as *;
+
+.main {
+  max-width: $content-max-width;
   margin: 0 auto;
-}
+  padding: $space-6;
+  display: grid;
+  grid-template-columns: minmax(260px, 1fr) minmax(0, 2.4fr);
+  gap: $space-6;
+  align-items: start;
 
-.main_wrapper {
-  display: flex;
-  justify-content: space-around;
-  gap: 15px;
-  margin-top: 15px;
-  padding-inline: 10px;
-}
+  &__menuButton {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 48px;
+    padding: 14px 20px;
+    border: none;
+    border-radius: $radius-pill;
+    background: $color-menu;
+    color: $color-ink;
+    font: inherit;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color $duration-fast ease;
 
-.main_wrapper > :nth-child(2) {
-  flex: 1;
-}
+    @include focus-ring;
 
-.main_wrapper > :nth-child(3) {
-  flex: 3;
-}
+    @include hover {
+      background: $color-lavender-chosen;
+    }
 
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 100;
-}
-
-.menuButton {
-  display: none;
-  margin: 0 auto;
-  padding: 10px 15px;
-  background: #c5bfb7;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-  z-index: 100;
-}
-
-@include mobile {
-  .main_wrapper {
-    display: flex;
-    flex-direction: column;
+    @include reduced-motion {
+      transition: none;
+    }
   }
 
-  .menuButton {
-    display: block;
+  &__menuIcon {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+  }
+
+  &__overlay {
+    position: fixed;
+    inset: 0;
+    background: $color-overlay;
+    z-index: 100;
+  }
+
+  @include tablet {
+    padding: $space-5;
+    gap: $space-5;
+    grid-template-columns: minmax(240px, 1fr) minmax(0, 2fr);
+  }
+
+  @include mobile {
+    padding: $space-4;
+    gap: $space-4;
+    grid-template-columns: minmax(0, 1fr);
+
+    &__menuButton {
+      display: flex;
+    }
   }
 }
