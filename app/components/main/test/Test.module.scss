@@ -257,6 +257,7 @@
     }
 
     &__answers {
+      align-self: stretch;
       flex-direction: column;
       gap: 10px;
     }
