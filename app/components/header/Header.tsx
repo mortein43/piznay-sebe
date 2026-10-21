@@ -1,29 +1,25 @@
-import Image from "next/image";
 import styles from "./Header.module.scss";
-import { Caveat } from "next/font/google";
-
-const caveat = Caveat({
-  weight: "400",
-  subsets: ["cyrillic"],
-});
+import Logo from "../logo/Logo";
 
 export default function Header({ onLogoClick }: { onLogoClick: () => void }) {
   return (
-    <>
-      <header className={styles.header}>
-        <Image
-          className={styles.header__logo}
-          src="/logo.svg"
-          width={175}
-          height={175}
-          alt="logo"
+    <header className={styles.header}>
+      <div className={styles.header__inner}>
+        <button
+          type="button"
+          className={styles.header__home}
           onClick={onLogoClick}
-          priority={true}
-        />
-        <h1 className={`${styles.header__title} ${caveat.className}`}>
-          Пізнай себе
-        </h1>
-      </header>
-    </>
+          aria-label="На головну"
+        >
+          <Logo className={styles.header__logo} />
+        </button>
+        <div className={styles.header__text}>
+          <h1 className={styles.header__title}>Пізнай себе</h1>
+          <p className={styles.header__tagline}>
+            Психологічні тести для самопізнання
+          </p>
+        </div>
+      </div>
+    </header>
   );
 }

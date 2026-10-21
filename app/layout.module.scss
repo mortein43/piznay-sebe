@@ -1,0 +1,12 @@
+@use "./styles/tokens.scss" as *;
+
+.layout {
+  min-height: 100vh;
+  background: $color-page;
+  color: $color-ink;
+  font-family: $font-body;
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

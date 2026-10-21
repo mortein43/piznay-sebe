@@ -71,3 +71,10 @@ $mobile-s: 480px;
     }
   }
 }
+
+// Turns transitions and animations off for people who ask for less motion
+@mixin reduced-motion {
+  @media (prefers-reduced-motion: reduce) {
+    @content;
+  }
+}

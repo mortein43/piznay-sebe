@@ -1,72 +1,151 @@
 @use "../../../styles/media.scss" as *;
-
-.testList_wrapper {
-  padding: 10px;
-  border-top: 2px solid rgb(105, 44, 44);
-  border-radius: 10px 10px 0 0;
-  text-align: center;
-}
-
-.testList_title {
-  font-weight: bold;
-  margin-bottom: 15px;
-}
+@use "../../../styles/tokens.scss" as *;
 
 .testList {
+  position: sticky;
+  top: $space-5;
+  max-height: calc(100vh - #{$space-7});
   display: flex;
   flex-direction: column;
-  align-items: center;
+  gap: $space-4;
+  padding: $space-5;
+  border: 1px solid $color-border;
+  border-radius: $radius-xl;
+  background: $color-card;
+  box-shadow: $shadow-card;
 
-  max-height: 450px;
-  overflow: auto;
-  padding-right: 15px;
-
-  &::-webkit-scrollbar {
-    width: 8px; // scrollbar width
+  &__title {
+    font-family: $font-display;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.3;
   }
 
-  &::-webkit-scrollbar-track {
-    background: transparent; // scrollbar track background
+  &__message {
+    color: $color-ink-soft;
+    line-height: 1.5;
+
+    &--error {
+      padding: 14px $space-4;
+      border-radius: $radius-lg;
+      background: $color-peach-soft;
+      color: $color-peach-deep;
+    }
   }
 
-  &::-webkit-scrollbar-thumb {
-    background-color: lightgray;
-    border-radius: 4px;
+  &__skeleton {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
 
-  /*border-right: 2px solid rgb(105, 44, 44);*/
+  &__skeletonLine {
+    display: block;
+    height: 20px;
+    border-radius: $radius-sm;
+    background: $color-lavender-soft;
 
-  &__item {
-    border-bottom: 1px solid black;
-    margin-top: 10px;
+    &:nth-child(1) {
+      width: 80%;
+    }
+
+    &:nth-child(2) {
+      width: 65%;
+    }
+
+    &:nth-child(3) {
+      width: 72%;
+    }
   }
 
-  &__item:hover {
+  &__items {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-right: -$space-2;
+    padding-right: $space-2;
+    overflow-y: auto;
+    list-style: none;
+
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: $radius-pill;
+      background-color: $color-border;
+    }
+  }
+
+  &__button {
+    width: 100%;
+    min-height: 48px;
+    padding: $space-3 14px;
+    border: none;
+    border-radius: $radius-md;
+    background: transparent;
+    color: $color-ink;
+    font: inherit;
+    font-weight: 600;
+    line-height: 1.35;
+    text-align: left;
     cursor: pointer;
-    opacity: 0.75;
-  }
-}
+    transition: background-color $duration-fast ease;
 
-@include mobile {
-  .testList_wrapper {
+    @include focus-ring;
+
+    @include hover {
+      background: $color-page;
+    }
+
+    &--active {
+      background: $color-lavender-soft;
+      color: $color-lavender-deep;
+      font-weight: 700;
+
+      @include hover {
+        background: $color-lavender-soft;
+      }
+    }
+
+    @include reduced-motion {
+      transition: none;
+    }
+  }
+
+  @include mobile {
     position: fixed;
     top: 0;
-    left: -250px;
-    width: 250px;
-    height: 100vh;
-    background: white;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
-    transition: left 0.3s ease-in-out;
-    padding: 20px;
-    z-index: 101;
-    padding-top: 30%;
-  }
-
-  .testList_title {
-    margin-bottom: 0;
-  }
-
-  .testList_wrapper.open {
     left: 0;
+    z-index: 101;
+    width: 300px;
+    max-width: calc(100vw - #{$space-7});
+    height: 100vh;
+    max-height: none;
+    box-sizing: border-box;
+    padding: 96px 20px $space-5;
+    border: none;
+    border-radius: 0 $radius-xl $radius-xl 0;
+    box-shadow: $shadow-drawer;
+    transform: translateX(-100%);
+    // Hidden from the keyboard and screen readers while closed; visibility switches after the slide.
+    visibility: hidden;
+    transition:
+      transform $duration-slow ease-in-out,
+      visibility 0s linear $duration-slow;
+
+    &--open {
+      transform: translateX(0);
+      visibility: visible;
+      transition: transform $duration-slow ease-in-out;
+    }
+
+    @include reduced-motion {
+      transition: none;
+    }
   }
 }
