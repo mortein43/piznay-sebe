@@ -67,10 +67,3 @@ $reading-width: 70ch;
     outline-offset: 3px;
   }
 }
-
-// Turns transitions and animations off for people who ask for less motion
-@mixin reduced-motion {
-  @media (prefers-reduced-motion: reduce) {
-    @content;
-  }
-}
