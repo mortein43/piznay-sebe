@@ -1,47 +1,76 @@
 @use "../../styles/media.scss" as *;
+@use "../../styles/theme.scss" as *;
 
-@keyframes slideInLeftAndSpin {
-  0% {
-    transform: translateX(-300%) rotate(0deg); /* Start: off to the left, not rotated */
-    opacity: 0;
-  }
-  100% {
-    transform: translateX(0) rotate(360deg); /* End: in place, after a full spin */
-    opacity: 1;
-  }
-}
 .header {
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  background: #e9dec8;
-  padding-block: 10px;
-  padding-inline: 10px;
+  background: $color-header;
+  border-bottom: 1px solid $color-lavender-100;
+
+  &__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  &__logoButton {
+    flex: 0 0 auto;
+    display: flex;
+    padding: 4px;
+    background: none;
+    border: 0;
+    border-radius: $radius-pill;
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: $focus-ring;
+      outline-offset: 2px;
+    }
+
+    @include hover {
+      background: $color-lavender-100;
+    }
+  }
 
   &__logo {
-    width: 175px;
-    aspect-ratio: 1;
-    animation: slideInLeftAndSpin 3s ease-out forwards;
+    width: 56px;
+    height: 56px;
   }
 
-  &__logo:hover {
-    opacity: 0.75;
-    cursor: pointer;
+  &__text {
+    min-width: 0;
   }
 
   &__title {
-    font-size: 5em;
-    font-weight: 500;
+    font-family: $font-heading;
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 1.1;
+  }
+
+  &__tagline {
+    font-size: 14px;
+    color: $color-ink-muted;
   }
 
   @include mobile {
+    &__inner {
+      padding: 12px 16px;
+      gap: 10px;
+    }
+
     &__logo {
-      width: 75px;
-      aspect-ratio: 1;
+      width: 40px;
+      height: 40px;
     }
 
     &__title {
-      font-size: 3.5em;
+      font-size: 22px;
+    }
+
+    &__tagline {
+      font-size: 12px;
     }
   }
 }
