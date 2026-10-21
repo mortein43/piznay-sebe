@@ -19,18 +19,22 @@ export default function Test({ test }: { test: TestDocument | null }) {
 
   if (!test) {
     return (
-      <section className={styles.test}>
-        <h2 className={styles.test__title}>
-          Виберіть тест, щоб почати проходження
-        </h2>
+      <section className={`${styles.test} ${styles["test--empty"]}`}>
         <Image
           className={styles.test__logo}
           src="/logo.svg"
-          width={375}
-          height={375}
-          alt="logo"
+          width={200}
+          height={200}
+          alt=""
           priority={true}
         />
+        <h2 className={styles.test__title}>
+          Виберіть тест, щоб почати проходження
+        </h2>
+        <p className={styles.test__hint}>
+          Знайдіть тихе місце, не поспішайте й відповідайте чесно — правильних
+          чи неправильних відповідей тут немає.
+        </p>
       </section>
     );
   }
@@ -39,7 +43,7 @@ export default function Test({ test }: { test: TestDocument | null }) {
     return (
       <section className={styles.test}>
         <h2 className={styles.test__name}>{test.name}</h2>
-        <p className={styles.test__title}>У цьому тесті поки немає питань.</p>
+        <p className={styles.test__hint}>У цьому тесті поки немає питань.</p>
       </section>
     );
   }
@@ -77,38 +81,41 @@ export default function Test({ test }: { test: TestDocument | null }) {
   return (
     <section className={styles.test}>
       <h2 className={styles.test__name}>{test.name}</h2>
-      <p className={styles.test__description}>{test.description}</p>
+      {test.description && (
+        <p className={styles.test__description}>{test.description}</p>
+      )}
       <p className={styles.test__instruction}>{test.instruction}</p>
       {showResult ? (
-        <section>
-          <h3 className={styles.test__resultTitle}>Тест завершено!</h3>
-          <p className={styles.test__resultTotal}>
-            Ваш результат: {totalScore}
-          </p>
+        <section className={styles.test__result}>
+          <div className={styles.test__resultSummary}>
+            <h3 className={styles.test__resultTitle}>Тест завершено!</h3>
+            <p className={styles.test__resultTotal}>
+              Ваш результат:{" "}
+              <strong className={styles.test__resultScore}>{totalScore}</strong>
+            </p>
+          </div>
           {Object.keys(scores).length > 1 && (
-            <>
-              <br />
-              <h4 className={styles.test__resultTitleForScale}>
-                Результат по шкалах:
-              </h4>
-              <ul className={styles.test__resultForScale}>
+            <div className={styles.test__scales}>
+              <h4 className={styles.test__scalesTitle}>Результат по шкалах:</h4>
+              <ul className={styles.test__scalesList}>
                 {Object.entries(scores).map(([scale, score]) => (
-                  <li key={scale}>
-                    {scale}: {score}
+                  <li key={scale} className={styles.test__scale}>
+                    <span>{scale}</span>
+                    <span className={styles.test__scaleScore}>{score}</span>
                   </li>
                 ))}
               </ul>
-            </>
+            </div>
           )}
-          <p className={styles.test__interpritation}>
-            {test.interpretation.split("  ").map((line, index) => (
-              <span key={index}>
-                {line}
-                <br />
-                <br />
-              </span>
-            ))}
-          </p>
+          <div className={styles.test__interpretation}>
+            {test.interpretation
+              .split("  ")
+              // Triple or trailing double spaces leave empty pieces; they are not paragraphs.
+              .filter((paragraph) => paragraph.trim() !== "")
+              .map((paragraph, index) => (
+                <p key={index}>{paragraph}</p>
+              ))}
+          </div>
         </section>
       ) : (
         <section className={styles.test__questionWrapper}>
@@ -118,22 +125,25 @@ export default function Test({ test }: { test: TestDocument | null }) {
             answered={currentQuestionIndex + (isDisabled ? 1 : 0)}
             total={questions.length}
           />
-          <h3 className={styles.test__questionText}>
-            {currentQuestion.question}
-          </h3>
+          <div className={styles.test__question}>
+            <h3 className={styles.test__questionText}>
+              {currentQuestion.question}
+            </h3>
 
-          <section className={styles.test__answersButtonsWrapper}>
-            {Object.keys(currentQuestion.answers).map((answer, index) => (
-              <button
-                className={styles.test__button}
-                key={index}
-                onClick={() => handleAnswerSelect(answer)}
-                disabled={isDisabled}
-              >
-                {answer}
-              </button>
-            ))}
-          </section>
+            <div className={styles.test__answers}>
+              {Object.keys(currentQuestion.answers).map((answer, index) => (
+                <button
+                  type="button"
+                  className={styles.test__button}
+                  key={index}
+                  onClick={() => handleAnswerSelect(answer)}
+                  disabled={isDisabled}
+                >
+                  {answer}
+                </button>
+              ))}
+            </div>
+          </div>
         </section>
       )}
     </section>
