@@ -1,0 +1,44 @@
+// Design tokens of the site (PS-22 redesign). Variables only: this file emits no CSS.
+// Every text colour keeps at least 4.5:1 contrast on the surfaces it is used on.
+
+// Surfaces
+$color-linen: #f6f2ec; // page background
+$color-cream: #fffcf7; // cards
+$color-border: #ece5da;
+$color-header: #efe8f7;
+$color-lavender-50: #f1ecf8; // hover
+$color-lavender-100: #e4dcf2; // active item, progress track
+$color-lavender-200: #d6cbec; // selected answer
+$color-lavender-300: #b9a8e0; // selected border, focus ring
+$color-lavender-400: #8e7fbf; // graphics only, never text
+$color-sage-100: #e2ede4; // instruction note, result card
+$color-sage-200: #cfe2d3;
+$color-sage-300: #9dbfa6; // progress fill
+$color-rose-100: #f7e4e1; // error message
+
+// Text
+$color-ink: #3b3547;
+$color-ink-muted: #625b70;
+$color-lavender-ink: #5e4f8c;
+$color-lavender-ink-strong: #4a3e73;
+$color-sage-ink: #46634f;
+$color-rose-ink: #8a4f4a;
+
+// Overlay behind the mobile test list
+$color-overlay: rgba(59, 53, 71, 0.28);
+
+// Fonts: CSS variables set by next/font in app/layout.tsx
+$font-heading: var(--font-heading), Georgia, serif;
+$font-body: var(--font-body), system-ui, sans-serif;
+
+// Shape
+$radius-s: 14px;
+$radius-m: 16px;
+$radius-l: 24px;
+$radius-xl: 28px;
+$radius-pill: 999px;
+
+$shadow-card: 0 12px 32px rgba(94, 79, 140, 0.08);
+$shadow-drawer: 8px 0 32px rgba(59, 53, 71, 0.16);
+
+$focus-ring: 3px solid $color-lavender-300;
