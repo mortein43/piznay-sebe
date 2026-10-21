@@ -1,111 +1,395 @@
 @use "../../../styles/media.scss" as *;
+@use "../../../styles/tokens.scss" as *;
+
 .test {
-  padding: 25px;
-  text-align: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  border-radius: 15px 15px 0 0;
-  border-top: 2px solid rgb(105, 44, 44);
-  /*border-left: 2px solid rgb(105, 44, 44);*/
+  gap: $space-5;
+  min-width: 0;
+  padding: 40px $space-7;
+  border: 1px solid $color-border;
+  border-radius: $radius-xl;
+  background: $color-card;
+  box-shadow: $shadow-card;
 
-  &__title {
-    font-size: 18px;
-    font-weight: bold;
+  &--centered {
+    align-items: center;
+    padding-block: 56px;
+    text-align: center;
   }
 
   &__logo {
-    margin-top: 25px;
-    animation: spinY 5s linear infinite;
+    width: 200px;
   }
 
-  @keyframes spinY {
-    from {
-      transform: rotateY(0deg);
-    }
-    to {
-      transform: rotateY(360deg);
-    }
-  }
-
-  &__name,
-  &__description,
-  &__instruction,
-  &__questionWrapper {
-    margin-top: 10px;
+  &__header {
+    display: flex;
+    flex-direction: column;
+    gap: $space-2;
   }
 
   &__name {
-    font-size: 24px;
+    color: $color-lavender-deep;
+    font-family: $font-display;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 1.25;
+  }
+
+  &__lead,
+  &__description {
+    max-width: $reading-width;
+    color: $color-ink-soft;
+    font-size: 17px;
+    line-height: 1.6;
+  }
+
+  &__lead {
+    font-size: 18px;
+  }
+
+  &__notice,
+  &__instruction {
+    padding: $space-4 20px;
+    border-radius: $radius-lg;
+    line-height: 1.6;
+  }
+
+  &__notice {
+    background: $color-lavender-soft;
+    font-size: 17px;
   }
 
   &__instruction {
-    font-style: italic;
+    background: $color-sage-soft;
+  }
+
+  &__progress {
+    display: flex;
+    flex-direction: column;
+    gap: $space-2;
+  }
+
+  &__progressLabel {
+    display: flex;
+    justify-content: space-between;
+    gap: $space-3;
+    color: $color-ink-soft;
+    font-size: 15px;
+  }
+
+  // Native <progress>: accessible without extra ARIA; the fill is styled per engine.
+  &__progressBar {
+    display: block;
+    width: 100%;
+    height: 10px;
+    border: none;
+    border-radius: $radius-pill;
+    overflow: hidden;
+    appearance: none;
+    background: $color-progress-track;
+    color: $color-progress;
+
+    &::-webkit-progress-bar {
+      border-radius: $radius-pill;
+      background: $color-progress-track;
+    }
+
+    &::-webkit-progress-value {
+      border-radius: $radius-pill;
+      background: $color-progress;
+      transition: width $duration-slow ease;
+    }
+
+    &::-moz-progress-bar {
+      border-radius: $radius-pill;
+      background: $color-progress;
+    }
+
+    @include reduced-motion {
+      &::-webkit-progress-value {
+        transition: none;
+      }
+    }
+  }
+
+  &__question {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+    padding: $space-6;
+    border-radius: 20px;
+    background: $color-lavender-soft;
+    text-align: center;
   }
 
   &__questionText {
-    font-weight: bold;
+    max-width: 640px;
+    font-family: $font-display;
+    font-size: 26px;
+    font-weight: 500;
+    line-height: 1.35;
   }
 
-  &__answersButtonsWrapper {
-    margin-top: 45px;
+  &__answers {
     display: flex;
-    justify-content: center;
-    gap: 15px;
     flex-wrap: wrap;
+    justify-content: center;
+    gap: $space-3;
   }
 
-  &__button {
-    padding: 15px 30px;
-    background-color: rgb(125, 218, 113);
-    width: max-content;
-    border-radius: 25px;
-    color: rgb(114, 99, 80);
-    font-weight: bold;
+  &__answer {
+    min-height: 48px;
+    max-width: 100%;
+    padding: 14px $space-5;
+    border: 1.5px solid $color-answer-border;
+    border-radius: $radius-pill;
+    background: $color-card;
+    color: $color-ink;
+    font: inherit;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.3;
     cursor: pointer;
-    box-shadow: 10px 10px 20px #b8b8b8, -10px -10px 20px #ffffff;
-    border: none;
-    outline: none;
-    transition: all 0.2s ease-in-out;
+    transition:
+      background-color $duration-fast ease,
+      border-color $duration-fast ease,
+      transform $duration-base ease;
 
-    &:hover {
-      box-shadow: 5px 5px 10px #b8b8b8, -5px -5px 10px #ffffff;
+    @include focus-ring;
+
+    &:not(:disabled) {
+      @include hover {
+        background: $color-lavender-chosen;
+        border-color: $color-progress;
+      }
     }
 
-    &:active {
-      box-shadow: inset 5px 5px 10px #b8b8b8, inset -5px -5px 10px #ffffff;
+    &:active:not(:disabled) {
       transform: scale(0.98);
     }
 
     &:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
+      cursor: default;
+      opacity: 0.6;
+    }
+
+    &--chosen,
+    &--chosen:disabled {
+      background: $color-lavender-chosen;
+      border-color: $color-progress;
+      font-weight: 700;
+      opacity: 1;
+    }
+
+    @include reduced-motion {
+      transition: none;
+
+      &:active:not(:disabled) {
+        transform: none;
+      }
     }
   }
 
-  &__resultTitle,
-  &__resultTotal,
-  &__resultTitleForScale,
-  &__resultForScale {
-    color: green;
+  &__result {
+    display: flex;
+    flex-direction: column;
+    gap: $space-5;
+  }
+
+  &__resultSummary {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $space-2;
+    padding: $space-6;
+    border-radius: 20px;
+    background: $color-sage-soft;
+    text-align: center;
   }
 
   &__resultTitle {
-    margin-top: 15px;
+    color: $color-sage-deep;
+    font-family: $font-display;
+    font-size: 26px;
+    font-weight: 600;
   }
 
-  &__interpritation {
-    text-align: justify;
-    margin-top: 15px;
+  &__resultTotal {
+    font-size: 18px;
+  }
+
+  &__resultScore {
+    color: $color-sage-deep;
+    font-family: $font-display;
+    font-size: 40px;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  &__scales {
+    display: flex;
+    flex-direction: column;
+    gap: $space-3;
+  }
+
+  &__scalesTitle {
+    color: $color-ink-soft;
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  &__scaleList {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: $space-3;
+    list-style: none;
+  }
+
+  &__scale {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: $space-3;
+    padding: $space-4 20px;
+    border-radius: $radius-lg;
+
+    &--lavender {
+      background: $color-lavender-soft;
+      color: $color-lavender-deep;
+    }
+
+    &--peach {
+      background: $color-peach-soft;
+      color: $color-peach-deep;
+    }
+
+    &--sage {
+      background: $color-sage-soft;
+      color: $color-sage-deep;
+    }
+  }
+
+  &__scaleName {
+    color: $color-ink;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+  }
+
+  &__scaleScore {
+    font-family: $font-display;
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  &__interpretation {
+    display: flex;
+    flex-direction: column;
+    gap: $space-4;
+    max-width: $reading-width;
+    font-size: 18px;
+    line-height: 1.7;
+  }
+
+  &__paragraph {
+    overflow-wrap: break-word;
+  }
+
+  @include tablet {
+    padding: $space-6;
+
+    &--centered {
+      padding-block: 48px;
+    }
   }
 
   @include mobile {
-    font-size: 14px;
-    padding: 5px;
+    gap: $space-4;
+    padding: $space-5 $space-4;
+    border-radius: $radius-xl;
+
+    &--centered {
+      padding: $space-6 20px;
+    }
 
     &__logo {
-      width: 300px;
-      aspect-ratio: 1;
+      width: 160px;
+    }
+
+    &__name {
+      font-size: 24px;
+      line-height: 1.3;
+    }
+
+    &__lead {
+      font-size: 16px;
+    }
+
+    &__description {
+      font-size: 15px;
+    }
+
+    &__instruction {
+      padding: $space-3 14px;
+      font-size: 15px;
+    }
+
+    &__progressLabel {
+      font-size: 14px;
+    }
+
+    &__progressBar {
+      height: 8px;
+    }
+
+    &__question {
+      align-items: stretch;
+      gap: 20px;
+      padding: 20px $space-4;
+    }
+
+    &__questionText {
+      font-size: 20px;
+      line-height: 1.4;
+    }
+
+    &__answers {
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    &__answer {
+      padding: $space-3 20px;
+    }
+
+    &__resultSummary {
+      padding: $space-5 $space-4;
+    }
+
+    &__resultTitle {
+      font-size: 22px;
+    }
+
+    &__resultTotal {
+      font-size: 16px;
+    }
+
+    &__resultScore {
+      font-size: 34px;
+    }
+
+    &__scaleList {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    &__scaleScore {
+      font-size: 22px;
+    }
+
+    &__interpretation {
+      gap: 14px;
+      font-size: 16px;
     }
   }
 }
