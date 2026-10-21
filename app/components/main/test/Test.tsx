@@ -2,6 +2,7 @@
 import styles from "./Test.module.scss";
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import ProgressBar from "./progress_bar/ProgressBar";
 import type { ScaleScores, Test as TestDocument } from "../../../../types/test";
 
 export default function Test({ test }: { test: TestDocument | null }) {
@@ -111,6 +112,12 @@ export default function Test({ test }: { test: TestDocument | null }) {
         </section>
       ) : (
         <section className={styles.test__questionWrapper}>
+          <ProgressBar
+            current={currentQuestionIndex + 1}
+            // isDisabled is set from the click until the next question shows, so the bar moves on the click itself.
+            answered={currentQuestionIndex + (isDisabled ? 1 : 0)}
+            total={questions.length}
+          />
           <h3 className={styles.test__questionText}>
             {currentQuestion.question}
           </h3>
