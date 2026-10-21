@@ -22,23 +22,23 @@ export default function TestList({ isOpen, onSelectTest }: TestListProps) {
   }, []);
 
   return (
-    <>
-      <section
-        className={`${styles.testList_wrapper} ${isOpen ? styles.open : ""}`}
-      >
-        <h2 className={styles.testList_title}>Список тестів</h2>
-        <ul className={styles.testList}>
-          {tests.map((test) => (
-            <li
-              key={test._id}
-              className={styles.testList__item}
+    <section
+      className={`${styles.testList} ${isOpen ? styles["testList--open"] : ""}`}
+    >
+      <h2 className={styles.testList__title}>Список тестів</h2>
+      <ul className={styles.testList__items}>
+        {tests.map((test) => (
+          <li key={test._id} className={styles.testList__item}>
+            <button
+              type="button"
+              className={styles.testList__button}
               onClick={() => onSelectTest(test)}
             >
               {test.name}
-            </li>
-          ))}
-        </ul>
-      </section>
-    </>
+            </button>
+          </li>
+        ))}
+      </ul>
+    </section>
   );
 }

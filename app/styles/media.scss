@@ -71,3 +71,10 @@ $mobile-s: 480px;
     }
   }
 }
+
+// Motion only for users who have not asked the system to reduce it.
+@mixin motion-safe {
+  @media (prefers-reduced-motion: no-preference) {
+    @content;
+  }
+}

@@ -1,72 +1,96 @@
 @use "../../../styles/media.scss" as *;
-
-.testList_wrapper {
-  padding: 10px;
-  border-top: 2px solid rgb(105, 44, 44);
-  border-radius: 10px 10px 0 0;
-  text-align: center;
-}
-
-.testList_title {
-  font-weight: bold;
-  margin-bottom: 15px;
-}
+@use "../../../styles/palette.scss" as *;
 
 .testList {
+  flex: 0 0 320px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  gap: 12px;
+  padding: 24px 16px;
+  background: $card;
+  border: 1px solid $border;
+  border-radius: $radius-card;
+  box-shadow: $shadow-card;
 
-  max-height: 450px;
-  overflow: auto;
-  padding-right: 15px;
-
-  &::-webkit-scrollbar {
-    width: 8px; // scrollbar width
+  &__title {
+    margin-inline: 14px;
+    font-family: $font-heading;
+    font-size: 22px;
+    font-weight: 500;
   }
 
-  &::-webkit-scrollbar-track {
-    background: transparent; // scrollbar track background
+  &__items {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    max-height: 560px;
+    overflow-y: auto;
+    padding-right: 4px;
+    scrollbar-width: thin;
+    scrollbar-color: $lavender-200 transparent;
   }
 
-  &::-webkit-scrollbar-thumb {
-    background-color: lightgray;
-    border-radius: 4px;
-  }
-
-  /*border-right: 2px solid rgb(105, 44, 44);*/
-
-  &__item {
-    border-bottom: 1px solid black;
-    margin-top: 10px;
-  }
-
-  &__item:hover {
+  &__button {
+    width: 100%;
+    min-height: 44px;
+    padding: 12px 14px;
+    border: none;
+    border-radius: 12px;
+    background: transparent;
+    color: $ink;
+    font: inherit;
+    font-size: 16px;
+    line-height: 1.4;
+    text-align: left;
+    overflow-wrap: anywhere;
     cursor: pointer;
-    opacity: 0.75;
-  }
-}
+    @include focus-ring;
 
-@include mobile {
-  .testList_wrapper {
+    @include motion-safe {
+      transition: background-color 150ms ease;
+    }
+
+    @include hover {
+      background: $lavender-50;
+    }
+  }
+
+  @include tablet {
+    flex-basis: 260px;
+  }
+
+  // On phones the list is a drawer that slides in from the left.
+  @include mobile {
     position: fixed;
     top: 0;
-    left: -250px;
-    width: 250px;
-    height: 100vh;
-    background: white;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
-    transition: left 0.3s ease-in-out;
-    padding: 20px;
-    z-index: 101;
-    padding-top: 30%;
-  }
-
-  .testList_title {
-    margin-bottom: 0;
-  }
-
-  .testList_wrapper.open {
     left: 0;
+    z-index: 101;
+    width: 290px;
+    max-width: 85vw;
+    height: 100vh;
+    padding: 96px 16px 24px;
+    border: none;
+    border-radius: 0 $radius-card $radius-card 0;
+    box-shadow: 4px 0 24px rgba(47, 42, 59, 0.12);
+    transform: translateX(-100%);
+    // Hidden drawers stay out of the tab order.
+    visibility: hidden;
+
+    @include motion-safe {
+      transition:
+        transform 300ms ease-in-out,
+        visibility 300ms;
+    }
+
+    &--open {
+      transform: translateX(0);
+      visibility: visible;
+    }
+
+    &__items {
+      max-height: none;
+      flex: 1;
+      min-height: 0;
+    }
   }
 }
