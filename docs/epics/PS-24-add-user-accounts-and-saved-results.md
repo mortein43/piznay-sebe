@@ -5,7 +5,7 @@
 - **Epic:** none (standalone)
 - **Depends on:** [PS-9](PS-6-move-codebase-to-typescript/tasks/PS-9-migrate-all-code-to-typescript.md) (epic PS-6)
 
-> Last synced with Jira on 2026-10-20. Jira is the source of truth for status.
+> Last synced with Jira on 2026-10-21. Jira is the source of truth for status.
 
 ## What and why
 
@@ -25,18 +25,15 @@ Tests stay open to everyone; no test requires an account. `next-auth`, `@auth/mo
 
 ## How
 
-Too big for one PR (roughly 2–3 weeks). Split it into tasks of one PR each before starting. The planned breakdown, in order:
+Too big for one PR (roughly 2–3 weeks). Split into three subtasks, one PR each, run in this order with `/my-loop:run` (each only after the previous one's PR is merged into `staging`; linked in Jira as PS-25 blocks PS-26 blocks PS-27):
 
-1. Google sign-in behind the feature flag, sign-in state in the header (the risky part goes first: OAuth on staging behind Vercel Authentication)
-2. Sign-in with an email link (Resend, SPF/DKIM on the domain)
-3. Save results of signed-in users and show them in the account history
-4. Saved result detail view with interpretation
-5. Save an anonymous result after sign-in
-6. Score progress chart for repeated attempts
-7. Profile: edit display name and sign out
-8. Delete a result and delete the account
-9. Privacy policy page and consent at sign-in
-10. Turn accounts on in production (prod OAuth/Resend config, backup decision for user data, staging check, flag on)
+1. [PS-25](https://mortein43-1788434116115.atlassian.net/browse/PS-25) Sign in with Google and an email link, show the account in the header (Auth.js, the `ACCOUNTS_ENABLED` flag, header state, profile with display name and sign-out; the risky part goes first: OAuth and email links on staging behind Vercel Authentication)
+2. [PS-26](https://mortein43-1788434116115.atlassian.net/browse/PS-26) Save test results to the account and show history, detail and progress (saving for signed-in users, the anonymous result saved after sign-in, history, detail with interpretation, SVG progress chart)
+3. [PS-27](https://mortein43-1788434116115.atlassian.net/browse/PS-27) Delete results and the account, add the privacy policy and consent at sign-in
+
+Decisions shared by the three subtasks are written in each one's «Shared decisions» section in Jira, so a run finds them in its ticket.
+
+Then, by hand in this issue (not a my-loop task): turn accounts on in production: production Google consent screen published, Resend domain verified (SPF/DKIM) and `AUTH_EMAIL_FROM` on the domain, prod env in Vercel, a backup approach for user data, a check on staging, then `ACCOUNTS_ENABLED=true` in Production.
 
 ## Acceptance criteria
 
@@ -61,7 +58,7 @@ _Boxes are not ticked here; status is tracked in Jira._
 
 - Start after PS-9 (TypeScript migration). Independent of [PS-22](PS-22-redesign-the-site.md) (redesign) and [PS-23](PS-23-add-admin-panel-on-staging.md) (admin). Whichever of PS-23 and this feature lands first sets up Auth.js; the other adds its provider to the same setup, never a second auth config. Keep visitor accounts separate from the admin allowlist.
 - This is the first production write path from visitors into `piznay_sebe` (new collections `users`, `accounts`, `sessions`, `verification_tokens`, `results`), approved by the owner.
-- Contract changes approved by the owner, to be written into the engineering rules before the related work: [privacy] scores (not answers) of signed-in users may be stored on the server; [reversibility] a user may hard-delete their own results and account (`tests` stays never-deleted).
-- Risks: Resend DNS and the Google OAuth consent screen must be ready early; OAuth and magic links must pass Vercel Authentication on staging; the Atlas free tier has no backups, so user data in prod is unprotected until a backup approach is decided; a saved result shows the test's current interpretation, which may have changed since.
+- Contract changes approved by the owner, written into the engineering rules on 2026-10-21 before any subtask runs: [privacy] scores (not answers) of signed-in users may be stored on the server; [reversibility] a user may hard-delete their own results and account (`tests` stays never-deleted).
+- Risks: Resend DNS and the Google OAuth consent screen must be ready early (staging avoids both with Resend's test sender and a consent screen in Testing mode); OAuth and magic links must pass Vercel Authentication on staging; the Atlas free tier has no backups, so user data in prod is unprotected until a backup approach is decided; a saved result shows the test's current interpretation, which may have changed since.
 - Out of scope: email + password, other OAuth providers, storing answers, sharing results, admin views of users/results, newsletters, the new design from PS-22.
-- Open: how long to keep data of inactive accounts.
+- Open: how long to keep data of inactive accounts. Proposed in PS-27: kept until the user deletes it, no automatic deletion; the owner confirms it with the privacy policy text before PS-27 runs.
