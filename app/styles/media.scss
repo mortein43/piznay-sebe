@@ -58,6 +58,12 @@ $mobile-s: 480px;
   }
 }
 
+@mixin reduced-motion {
+  @media (prefers-reduced-motion: reduce) {
+    @content;
+  }
+}
+
 @mixin hover {
   @media (hover: hover) {
     &:hover {

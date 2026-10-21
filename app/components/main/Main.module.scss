@@ -1,53 +1,65 @@
 @use "../../styles/media.scss" as *;
-.myContainer {
-  width: 80%;
-  margin: 0 auto;
-}
+@use "../../styles/theme.scss" as *;
 
-.main_wrapper {
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 24px 48px;
   display: flex;
-  justify-content: space-around;
-  gap: 15px;
-  margin-top: 15px;
-  padding-inline: 10px;
-}
+  align-items: flex-start;
+  gap: 28px;
 
-.main_wrapper > :nth-child(2) {
-  flex: 1;
-}
-
-.main_wrapper > :nth-child(3) {
-  flex: 3;
-}
-
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 100;
-}
-
-.menuButton {
-  display: none;
-  margin: 0 auto;
-  padding: 10px 15px;
-  background: #c5bfb7;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-  z-index: 100;
-}
-
-@include mobile {
-  .main_wrapper {
-    display: flex;
-    flex-direction: column;
+  &__content {
+    flex: 1 1 auto;
+    min-width: 0;
   }
 
-  .menuButton {
-    display: block;
+  &__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: $color-overlay;
+    z-index: 100;
+  }
+
+  &__menuButton {
+    display: none;
+    align-self: center;
+    min-height: 44px;
+    padding: 10px 24px;
+    background: $color-cream;
+    border: 1px solid $color-lavender-200;
+    border-radius: $radius-pill;
+    font: inherit;
+    font-weight: 700;
+    color: $color-lavender-ink-strong;
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: $focus-ring;
+      outline-offset: 2px;
+    }
+
+    @include hover {
+      background: $color-lavender-50;
+    }
+  }
+
+  @include tablet {
+    gap: 20px;
+    padding-inline: 20px;
+  }
+
+  @include mobile {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+    padding: 16px 16px 32px;
+
+    &__menuButton {
+      display: block;
+    }
   }
 }
