@@ -1,111 +1,304 @@
 @use "../../../styles/media.scss" as *;
-.test {
-  padding: 25px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-radius: 15px 15px 0 0;
-  border-top: 2px solid rgb(105, 44, 44);
-  /*border-left: 2px solid rgb(105, 44, 44);*/
+@use "../../../styles/theme.scss" as *;
 
-  &__title {
-    font-size: 18px;
-    font-weight: bold;
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.test {
+  padding: 40px 48px;
+  background: $color-cream;
+  border: 1px solid $color-border;
+  border-radius: $radius-xl;
+  box-shadow: $shadow-card;
+  overflow-wrap: anywhere;
+
+  // No test selected yet
+  &--welcome {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-block: 56px;
+    text-align: center;
   }
 
   &__logo {
-    margin-top: 25px;
-    animation: spinY 5s linear infinite;
-  }
+    width: 240px;
+    height: 240px;
+    animation: float 6s ease-in-out infinite;
 
-  @keyframes spinY {
-    from {
-      transform: rotateY(0deg);
-    }
-    to {
-      transform: rotateY(360deg);
+    @include reduced-motion {
+      animation: none;
     }
   }
 
-  &__name,
-  &__description,
-  &__instruction,
-  &__questionWrapper {
-    margin-top: 10px;
+  &__welcomeTitle {
+    margin-top: 32px;
+    font-family: $font-heading;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  &__welcomeText {
+    max-width: 520px;
+    margin-top: 12px;
+    color: $color-ink-muted;
   }
 
   &__name {
-    font-size: 24px;
+    font-family: $font-heading;
+    font-size: 34px;
+    font-weight: 600;
+    line-height: 1.25;
+  }
+
+  &__description {
+    margin-top: 8px;
+    color: $color-ink-muted;
   }
 
   &__instruction {
+    margin-top: 20px;
+    padding: 14px 18px;
+    background: $color-sage-100;
+    border-radius: $radius-m;
     font-style: italic;
   }
 
+  &__empty {
+    margin-top: 16px;
+    color: $color-ink-muted;
+  }
+
+  &__progress {
+    margin-top: 32px;
+  }
+
+  &__question {
+    margin-top: 40px;
+    text-align: center;
+  }
+
   &__questionText {
-    font-weight: bold;
+    font-family: $font-heading;
+    font-size: 26px;
+    font-weight: 500;
+    line-height: 1.4;
   }
 
-  &__answersButtonsWrapper {
-    margin-top: 45px;
+  &__answers {
+    margin-top: 32px;
     display: flex;
-    justify-content: center;
-    gap: 15px;
     flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
   }
 
-  &__button {
-    padding: 15px 30px;
-    background-color: rgb(125, 218, 113);
-    width: max-content;
-    border-radius: 25px;
-    color: rgb(114, 99, 80);
-    font-weight: bold;
+  &__answer {
+    min-height: 48px;
+    max-width: 100%;
+    padding: 12px 26px;
+    background: $color-cream;
+    border: 1px solid $color-lavender-100;
+    border-radius: $radius-pill;
+    font: inherit;
+    font-weight: 600;
+    color: $color-ink;
+    overflow-wrap: anywhere;
     cursor: pointer;
-    box-shadow: 10px 10px 20px #b8b8b8, -10px -10px 20px #ffffff;
-    border: none;
-    outline: none;
-    transition: all 0.2s ease-in-out;
+    transition:
+      background 150ms ease,
+      border-color 150ms ease;
 
-    &:hover {
-      box-shadow: 5px 5px 10px #b8b8b8, -5px -5px 10px #ffffff;
+    &:focus-visible {
+      outline: $focus-ring;
+      outline-offset: 2px;
     }
 
-    &:active {
-      box-shadow: inset 5px 5px 10px #b8b8b8, inset -5px -5px 10px #ffffff;
-      transform: scale(0.98);
+    @include hover {
+      background: $color-lavender-50;
+      border-color: $color-lavender-300;
     }
 
     &:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
+      cursor: default;
+      opacity: 0.6;
+    }
+
+    &--selected,
+    &--selected:disabled {
+      background: $color-lavender-200;
+      border-color: $color-lavender-300;
+      opacity: 1;
     }
   }
 
-  &__resultTitle,
-  &__resultTotal,
-  &__resultTitleForScale,
-  &__resultForScale {
-    color: green;
+  &__result {
+    margin-top: 36px;
+  }
+
+  &__resultSummary {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 28px;
+    padding: 32px;
+    background: $color-sage-100;
+    border-radius: $radius-l;
+  }
+
+  &__score {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    height: 120px;
+    background: $color-cream;
+    border-radius: $radius-pill;
+    font-family: $font-heading;
+    font-size: 44px;
+    font-weight: 600;
+    line-height: 1;
+    color: $color-sage-ink;
   }
 
   &__resultTitle {
-    margin-top: 15px;
+    font-family: $font-heading;
+    font-size: 28px;
+    font-weight: 600;
   }
 
-  &__interpritation {
-    text-align: justify;
-    margin-top: 15px;
+  &__resultTotal {
+    margin-top: 4px;
+    font-size: 19px;
+  }
+
+  &__scales {
+    margin-top: 28px;
+  }
+
+  &__scalesTitle {
+    margin-bottom: 12px;
+    font-family: $font-heading;
+    font-size: 21px;
+    font-weight: 600;
+  }
+
+  &__scaleList {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  &__scale {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 18px;
+    background: $color-lavender-50;
+    border-radius: $radius-m;
+  }
+
+  &__scaleScore {
+    color: $color-lavender-ink;
+  }
+
+  &__interpretation {
+    margin-top: 28px;
+    padding-top: 28px;
+    border-top: 1px solid $color-border;
+
+    p + p {
+      margin-top: 16px;
+    }
+  }
+
+  @include tablet {
+    padding: 32px;
+
+    &--welcome {
+      padding-block: 48px;
+    }
   }
 
   @include mobile {
-    font-size: 14px;
-    padding: 5px;
+    padding: 24px 20px;
+    border-radius: $radius-l;
+    font-size: 16px;
+
+    &--welcome {
+      padding-block: 32px;
+    }
 
     &__logo {
-      width: 300px;
-      aspect-ratio: 1;
+      width: 180px;
+      height: 180px;
+    }
+
+    &__welcomeTitle {
+      margin-top: 24px;
+      font-size: 24px;
+    }
+
+    &__name {
+      font-size: 25px;
+    }
+
+    &__instruction {
+      margin-top: 14px;
+      padding: 12px 14px;
+    }
+
+    &__progress {
+      margin-top: 22px;
+    }
+
+    &__question {
+      margin-top: 26px;
+    }
+
+    &__questionText {
+      font-size: 21px;
+    }
+
+    &__answers {
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    &__answer {
+      padding: 10px 20px;
+    }
+
+    &__resultSummary {
+      flex-direction: column;
+      gap: 12px;
+      padding: 22px;
+      text-align: center;
+    }
+
+    &__score {
+      width: 96px;
+      height: 96px;
+      font-size: 36px;
+    }
+
+    &__resultTitle {
+      font-size: 23px;
+    }
+
+    &__scaleList {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 8px;
     }
   }
 }
